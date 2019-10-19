@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>ET760 Wildfire System</title>
+    <title>Honeycomp Outfire System by ET760</title>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -39,11 +39,23 @@
         #legend span{
             margin: 5px;
         }
+
+        #dronelist {
+            overflow-y: scroll;
+            width: 400px;
+            height: 200px;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            padding: 5px;
+            background-color :  rgba(200,200,200,0.6)
+
+        }
     </style>
 </head>
 <body>
     <div class=navi>
-        <H2> ET760 Outfire System </H2>
+        <H2> Honeycomp Outfire System by ET760 </H2>
     </div>
     <div id="map"></div>
     <div id="legend">
@@ -52,6 +64,63 @@
         <span class="btn btn-light"><img width=25 height=25 src="img/blade32green2.png"/>Active Drone</span>
         <span class="btn btn-light"><img width=25 height=25 src="img/blade32coffee.png"/>Home Drone</span>
         <span class="btn btn-light"><img width=25 height=25 src="https://maps.google.com/mapfiles/kml/shapes/info-i_maps.png"/>Info</span>
+    </div>
+
+    <div id="dronelist">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">UserName</th>
+              <th scope="col">Power </th>
+              <th scope="col">State</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">1</th>
+              <td>Bob's Drone</td>
+              <td>60%</td>
+              <td>Air Drop</td>
+            </tr>
+            <tr>
+              <th scope="row">2</th>
+              <td>Pixhawk</td>
+              <td>85%</td>
+              <td>Monitor</td>
+            </tr>
+            <tr>
+              <th scope="row">3</th>
+              <td>Larry</td>
+              <td>30%</td>
+              <td>Home</td>
+            </tr>
+            <tr>
+              <th scope="row">4</th>
+              <td>Jack</td>
+              <td>41%</td>
+              <td>Air Drop</td>
+            </tr>
+            <tr>
+              <th scope="row">5</th>
+              <td>NightHawk</td>
+              <td>90%</td>
+              <td>Monitor</td>
+            </tr>
+            <tr>
+              <th scope="row">6</th>
+              <td>pika</td>
+              <td>99%</td>
+              <td>Monitor</td>
+            </tr>
+            <tr>
+              <th scope="row">7</th>
+              <td>BuBuBu</td>
+              <td>95%</td>
+              <td>Air Drop</td>
+            </tr>
+          </tbody>
+        </table>
     </div>
     <script>
         var videoIndex = 0 ;
