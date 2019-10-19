@@ -52,6 +52,7 @@
         <span class="btn btn-light"><img width=25 height=25 src="https://maps.google.com/mapfiles/kml/shapes/info-i_maps.png"/>Info</span>
     </div>
     <script>
+        var videoIndex = 0 ;
 
         var gLat = 25.16593200;
         var gLon = 121.57407800;
@@ -61,7 +62,17 @@
         var droneList = [] ;
 
         function getRnd(x){
-            return Math.floor(Math.random()*x) * 0.0001;
+            var t = Math.floor(Math.random()*x) ;
+            t = t - x / 2;
+            t = t * 0.0005 ; ;
+
+            return t ;
+        };
+
+
+
+        function getIntRnd(x){
+            return Math.floor(Math.random()*x)
         };
 
         function initMap() {
@@ -80,11 +91,30 @@
                 streetViewControl: false,
            });
 
+            function displayVideo(result) {
+                videoIndex = videoIndex + 1 ;
+                var infoPos = {
+                      lat: gLat,
+                      lng: gLon
+                    };
+
+                  var infowindow = new google.maps.InfoWindow({
+                    content: '<iframe width="560" height="315" src="https://www.youtube.com/embed/Ggyars_ENik" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>',
+                    position: infoPos,
+                    maxWidth: 560,
+                    maxHeight: 315,
+                    pixelOffset: new google.maps.Size(100, -20) 
+                  });
+                  infowindow.open(map);
+
+            }
+
+
             // ============ INIT FIRE POSITION
-            var fireCount = 3;
+            var fireCount = 4;
             for (var i = 0 ; i < fireCount ; i = i + 1 ) {
                 var fire = new google.maps.Marker({
-                    position: new google.maps.LatLng(gLat+getRnd(30), gLon+getRnd(30) ),
+                    position: new google.maps.LatLng(gLat+getRnd(10), gLon+getRnd(10) ),
                     map: map,
                     icon: 'img/fire32.png'
                 });
@@ -92,10 +122,10 @@
                 fireList.push(fire) ;
             }
 
-            var droneCount = 2 ;
+            var droneCount = 15 ;
             for ( var d = 0 ; d < droneCount ; d = d + 1) {
                 var drone = new google.maps.Marker({
-                    position: new google.maps.LatLng(gLat+getRnd(30), gLon+getRnd(30) ),
+                    position: new google.maps.LatLng(gLat+getRnd(10), gLon+getRnd(10) ),
                     map: map,
                     icon: 'img/blade32green2.png'
                 });
@@ -103,21 +133,27 @@
                 drone.posY = gLon+getRnd(30) ;
 
                 drone._id = "d" + d ;
-                drone._numDeltas = 20;
-                drone._delay = 200; //milliseconds
-                drone._cnt = Math.floor(Math.random() * drone._numDeltas) ;
+                drone._numDeltas = 50 + getIntRnd(20) ;
+                drone._delay = 30 + getIntRnd(50); //milliseconds
+                drone._cnt = 0 ;
                 drone._deltaLat = 0.0 ;
                 drone._deltaLng = 0.0 ;
 
-                drone._startX = gLat+getRnd(30) ;
-                drone._startY = gLat+getRnd(30) ;
+                drone._startX = gLat+getRnd(10) ;
+                drone._startY = gLon+getRnd(10) ;
                 drone._endX = gLat+getRnd(100) ;
-                drone._endY = gLat+getRnd(100);
+                drone._endY = gLon+getRnd(100) ;
                 drone._dir = 1 ;
 
                 console.log("push one drone") ;
                 droneList.push(drone) ;
                 //transitionV2(drone, [gLat+getRnd(200), gLon+getRnd(200)]);
+
+                droneList[ droneList.length -1 ].addListener('click',function(target){
+                    console.log(target) ;
+                    console.log("get done id=" + target ) ;
+                    displayVideo() ;
+                });
             }
 
             var gCenter = new google.maps.LatLng(24.930000, 121.280000) ;
@@ -133,7 +169,7 @@
 
 
             var numDeltas = 20;
-            var delay = 100; //milliseconds
+            var delay = 100 + Math.random(40) ; //milliseconds
             var i = 0;
             var deltaLat;
             var deltaLng;
@@ -154,23 +190,35 @@
                 var latlng = new google.maps.LatLng(drone.posX, drone.posY);
                 drone.setPosition(latlng);
 
-                console.log( drone._id + " cnt=" +  drone._cnt)
+                //console.log( drone._id + " cnt=" +  drone._cnt)
                 if(drone._cnt != drone._numDeltas){
                     drone._cnt++ ;
                     setTimeout(function(){
                         moveMarkerV2(drone) ;
-                    }, 100);
+                    }, drone._delay);
                 }
                 else {
-                    // console.log("change dir!! cnt=" + drone._cnt) ;
-                    // drone._cnt = 0 ;
-                    // if ( drone._dir == 1 ) {
-                    //     drone._dir = -1 ;
-                    //     transitionV2(drone, [drone._startX, drone._startY]) ;    
-                    // } else {
-                    //     drone._dir = 1
-                    //     transitionV2(drone, [drone._endX, drone._endY]) ; 
-                    // }
+                    //console.log("change dir!! cnt=" + drone._cnt + "," + drone.posX + "/" + drone.posY) ;
+
+                    drone._cnt = 0 ;
+                    drone._deltaLat = 0.0 ;
+                    drone._deltaLng = 0.0 ;
+                    if ( drone._dir == 1 ) {
+                        drone._dir = 2 ;
+                        drone.posX = drone._endX ;
+                        drone.posY = drone._endY ;
+                        transitionV2(drone, [drone._startX, drone._startY]) ;    
+                        drone.setIcon('img/blade32coffee.png') ;
+                    } else if (drone._dir == 2) {
+                        drone._dir = 1
+                        drone.posX = drone._startX ;
+                        drone.posY = drone._startY ;
+                        transitionV2(drone, [drone._endX, drone._endY]) ; 
+                        drone.setIcon('img/blade32green2.png') ;
+                    }
+                    else if ( drone_dir == 3 ) {
+
+                    }
                     console.log("drone END!!") ;
                 }
             }
@@ -213,12 +261,12 @@
             google.maps.event.addListener(map, 'click', function(event) {
                 var result = [event.latLng.lat(), event.latLng.lng()];
                 transition(result);
-                for (var d = 0 ; d < droneList.length ; d=d+1) {
-                    var drone = droneList[d] ;
-                    transitionV2(drone, [result[0]+getRnd(200), result[1]+getRnd(200)]);
-                }
-
             });
+
+            for (var d = 0 ; d < droneList.length ; d=d+1) {
+                var drone = droneList[d] ;
+                transitionV2(drone, [drone._endX, drone._endY]) ; 
+            }
 
 
         }
