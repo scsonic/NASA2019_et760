@@ -57,7 +57,15 @@
         var gLon = 121.57407800;
         var position = [gLat, gLon] ;
 
+        var fireList = [] ;
+        var droneList = [] ;
+
+        function getRnd(x){
+            return Math.floor(Math.random()*x) * 0.0001;
+        };
+
         function initMap() {
+            console.log("init map start") ;
             var latlng = new google.maps.LatLng(gLat, gLon);
             var map = new google.maps.Map(document.getElementById('map'), {
                 center: { lat: 25.16593200, lng:  121.57407800 },
@@ -72,18 +80,45 @@
                 streetViewControl: false,
            });
 
-            var marker = new google.maps.Marker({
-                position: latlng,
-                map: map,
-                icon: 'img/blade32green.png',
-                title: "State: AirDrop<BR>Power: 50%<BR>Owner: Harry Poter"
-            });
+            // ============ INIT FIRE POSITION
+            var fireCount = 3;
+            for (var i = 0 ; i < fireCount ; i = i + 1 ) {
+                var fire = new google.maps.Marker({
+                    position: new google.maps.LatLng(gLat+getRnd(30), gLon+getRnd(30) ),
+                    map: map,
+                    icon: 'img/fire32.png'
+                });
+                console.log("push one fire") ;
+                fireList.push(fire) ;
+            }
 
-            google.maps.event.addListener(map, 'click', function(event) {
-                var result = [event.latLng.lat(), event.latLng.lng()];
-                console.log("click point=", result) ;
-                transition(result);
-            });
+            var droneCount = 2 ;
+            for ( var d = 0 ; d < droneCount ; d = d + 1) {
+                var drone = new google.maps.Marker({
+                    position: new google.maps.LatLng(gLat+getRnd(30), gLon+getRnd(30) ),
+                    map: map,
+                    icon: 'img/blade32green2.png'
+                });
+                drone.posX = gLat+getRnd(30) ;
+                drone.posY = gLon+getRnd(30) ;
+
+                drone._id = "d" + d ;
+                drone._numDeltas = 20;
+                drone._delay = 200; //milliseconds
+                drone._cnt = Math.floor(Math.random() * drone._numDeltas) ;
+                drone._deltaLat = 0.0 ;
+                drone._deltaLng = 0.0 ;
+
+                drone._startX = gLat+getRnd(30) ;
+                drone._startY = gLat+getRnd(30) ;
+                drone._endX = gLat+getRnd(100) ;
+                drone._endY = gLat+getRnd(100);
+                drone._dir = 1 ;
+
+                console.log("push one drone") ;
+                droneList.push(drone) ;
+                //transitionV2(drone, [gLat+getRnd(200), gLon+getRnd(200)]);
+            }
 
             var gCenter = new google.maps.LatLng(24.930000, 121.280000) ;
 
@@ -96,16 +131,64 @@
             //     });
             // });
 
-            var legend = document.getElementById('legend');
 
-            map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(legend);
-
-
-            var numDeltas = 100;
-            var delay = 10; //milliseconds
+            var numDeltas = 20;
+            var delay = 100; //milliseconds
             var i = 0;
             var deltaLat;
             var deltaLng;
+
+            function transitionV2(drone, result){
+                drone._cnt = 0;
+                //drone.posX = result[0] ;
+                //drone.posY = result[1] ;
+                drone._deltaLat = (result[0] - drone.posX)/drone._numDeltas;
+                drone._deltaLng = (result[1] - drone.posY)/drone._numDeltas;
+                moveMarkerV2(drone);
+            }
+
+            function moveMarkerV2(drone){
+                drone.posX += drone._deltaLat;
+                drone.posY += drone._deltaLng;
+
+                var latlng = new google.maps.LatLng(drone.posX, drone.posY);
+                drone.setPosition(latlng);
+
+                console.log( drone._id + " cnt=" +  drone._cnt)
+                if(drone._cnt != drone._numDeltas){
+                    drone._cnt++ ;
+                    setTimeout(function(){
+                        moveMarkerV2(drone) ;
+                    }, 100);
+                }
+                else {
+                    // console.log("change dir!! cnt=" + drone._cnt) ;
+                    // drone._cnt = 0 ;
+                    // if ( drone._dir == 1 ) {
+                    //     drone._dir = -1 ;
+                    //     transitionV2(drone, [drone._startX, drone._startY]) ;    
+                    // } else {
+                    //     drone._dir = 1
+                    //     transitionV2(drone, [drone._endX, drone._endY]) ; 
+                    // }
+                    console.log("drone END!!") ;
+                }
+            }
+
+
+            // ==========================
+
+
+            var legend = document.getElementById('legend');
+            map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(legend);
+
+
+            var marker = new google.maps.Marker({
+                position: latlng,
+                map: map,
+                icon: 'img/blade32green.png',
+                title: "State: AirDrop<BR>Power: 50%<BR>Owner: Harry Poter"
+            });
 
             function transition(result){
                 i = 0;
@@ -113,6 +196,7 @@
                 deltaLng = (result[1] - position[1])/numDeltas;
                 moveMarker();
             }
+
 
             function moveMarker(){
                 position[0] += deltaLat;
@@ -125,6 +209,17 @@
                     setTimeout(moveMarker, delay);
                 }
             }
+
+            google.maps.event.addListener(map, 'click', function(event) {
+                var result = [event.latLng.lat(), event.latLng.lng()];
+                transition(result);
+                for (var d = 0 ; d < droneList.length ; d=d+1) {
+                    var drone = droneList[d] ;
+                    transitionV2(drone, [result[0]+getRnd(200), result[1]+getRnd(200)]);
+                }
+
+            });
+
 
         }
     </script>
