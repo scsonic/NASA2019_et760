@@ -27,7 +27,7 @@
             position: absolute;
             z-index: 10;
             width: 100%;
-            height: 80px;
+            height: 60px;
             background-color :  rgba(200,200,200,0.6)
         }
 
@@ -43,12 +43,14 @@
 </head>
 <body>
     <div class=navi>
-        <H2>ET760 Wildfire System</H2>
+        <H2> ET760 Outfire System </H2>
     </div>
     <div id="map"></div>
     <div id="legend">
         <span class="btn btn-light"><img width=25 height=25 src="img/fire.png"/>Wildfire</span>
-        <span class="btn btn-light"><img width=25 height=25 src="img/blade.png"/>ET760 Support Drone</span>
+        <span class="btn btn-light"><img width=25 height=25 src="img/blade48blue.png"/>ET760 Select Drone</span>
+        <span class="btn btn-light"><img width=25 height=25 src="img/blade32green2.png"/>Active Drone</span>
+        <span class="btn btn-light"><img width=25 height=25 src="img/blade32coffee.png"/>Home Drone</span>
         <span class="btn btn-light"><img width=25 height=25 src="https://maps.google.com/mapfiles/kml/shapes/info-i_maps.png"/>Info</span>
     </div>
     <script>
@@ -94,15 +96,15 @@
             function displayVideo(result) {
                 videoIndex = videoIndex + 1 ;
                 var infoPos = {
-                      lat: gLat,
-                      lng: gLon
+                      lat: gLat - 0.001,
+                      lng: gLon + 0.01 
                     };
 
                   var infowindow = new google.maps.InfoWindow({
-                    content: '<iframe width="560" height="315" src="https://www.youtube.com/embed/Ggyars_ENik" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>',
+                    content: '<iframe width="400" height="300" src="https://www.youtube.com/embed/y-988C2elwU?s=30&autoplay=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>',
                     position: infoPos,
-                    maxWidth: 560,
-                    maxHeight: 315,
+                    maxWidth: 400,
+                    maxHeight: 300,
                     pixelOffset: new google.maps.Size(100, -20) 
                   });
                   infowindow.open(map);
@@ -114,7 +116,7 @@
             var fireCount = 4;
             for (var i = 0 ; i < fireCount ; i = i + 1 ) {
                 var fire = new google.maps.Marker({
-                    position: new google.maps.LatLng(gLat+getRnd(10), gLon+getRnd(10) ),
+                    position: new google.maps.LatLng(gLat+getRnd(5), gLon+getRnd(5) ),
                     map: map,
                     icon: 'img/fire32.png'
                 });
@@ -125,7 +127,7 @@
             var droneCount = 15 ;
             for ( var d = 0 ; d < droneCount ; d = d + 1) {
                 var drone = new google.maps.Marker({
-                    position: new google.maps.LatLng(gLat+getRnd(10), gLon+getRnd(10) ),
+                    position: new google.maps.LatLng(gLat+getRnd(5), gLon+getRnd(5) ),
                     map: map,
                     icon: 'img/blade32green2.png'
                 });
@@ -133,14 +135,14 @@
                 drone.posY = gLon+getRnd(30) ;
 
                 drone._id = "d" + d ;
-                drone._numDeltas = 50 + getIntRnd(20) ;
-                drone._delay = 30 + getIntRnd(50); //milliseconds
+                drone._numDeltas = 80 + getIntRnd(20) ;
+                drone._delay = 30 + getIntRnd(30); //milliseconds
                 drone._cnt = 0 ;
                 drone._deltaLat = 0.0 ;
                 drone._deltaLng = 0.0 ;
 
-                drone._startX = gLat+getRnd(10) ;
-                drone._startY = gLon+getRnd(10) ;
+                drone._startX = gLat+getRnd(1) ;
+                drone._startY = gLon+getRnd(1) ;
                 drone._endX = gLat+getRnd(100) ;
                 drone._endY = gLon+getRnd(100) ;
                 drone._dir = 1 ;
@@ -208,13 +210,13 @@
                         drone.posX = drone._endX ;
                         drone.posY = drone._endY ;
                         transitionV2(drone, [drone._startX, drone._startY]) ;    
-                        drone.setIcon('img/blade32coffee.png') ;
+                        drone.setIcon('img/blade32green2.png') ;
                     } else if (drone._dir == 2) {
                         drone._dir = 1
                         drone.posX = drone._startX ;
                         drone.posY = drone._startY ;
                         transitionV2(drone, [drone._endX, drone._endY]) ; 
-                        drone.setIcon('img/blade32green2.png') ;
+                        drone.setIcon('img/blade32coffee.png') ;
                     }
                     else if ( drone_dir == 3 ) {
 
@@ -234,7 +236,7 @@
             var marker = new google.maps.Marker({
                 position: latlng,
                 map: map,
-                icon: 'img/blade32green.png',
+                icon: 'img/blade48blue.png',
                 title: "State: AirDrop<BR>Power: 50%<BR>Owner: Harry Poter"
             });
 
