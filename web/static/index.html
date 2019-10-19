@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ET760 Wildfire System</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+
+    <style>
+
+        html, body {
+          height: 100%;
+          width: 100%;
+          margin: 0;
+          padding: 0;
+        }
+        #map {
+          height: 100%;
+          width: 100%;
+        }
+
+        div.navi {
+            position: absolute;
+            z-index: 10;
+            width: 100%;
+            height: 80px;
+            background-color :  rgba(200,200,200,0.6)
+        }
+
+        #legend {
+            padding: 5px ;
+
+            background-color :  rgba(200,200,200,0.6)
+        }
+        #legend span{
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class=navi>
+        <H2>ET760 Wildfire System</H2>
+    </div>
+    <div id="map"></div>
+    <div id="legend">
+        <span class="btn btn-light"><img width=25 height=25 src="img/fire.png"/>Wildfire</span>
+        <span class="btn btn-light"><img width=25 height=25 src="img/blade.png"/>ET760 Support Drone</span>
+        <span class="btn btn-light"><img width=25 height=25 src="https://maps.google.com/mapfiles/kml/shapes/info-i_maps.png"/>Info</span>
+    </div>
+    <script>
+
+        var gLat = 25.16593200;
+        var gLon = 121.57407800;
+        var position = [gLat, gLon] ;
+
+        function initMap() {
+            var latlng = new google.maps.LatLng(gLat, gLon);
+            var map = new google.maps.Map(document.getElementById('map'), {
+                center: { lat: 25.16593200, lng:  121.57407800 },
+                zoom: 15,
+                mapTypeId: 'satellite',
+                mapTypeControl: false,
+                zoomControl: true,
+                zoomControlOptions: {
+                    position: google.maps.ControlPosition.LEFT_CENTER
+                },
+                scaleControl: true,
+                streetViewControl: false,
+           });
+
+            var marker = new google.maps.Marker({
+                position: latlng,
+                map: map,
+                icon: 'img/blade32green.png',
+                title: "State: AirDrop<BR>Power: 50%<BR>Owner: Harry Poter"
+            });
+
+            google.maps.event.addListener(map, 'click', function(event) {
+                var result = [event.latLng.lat(), event.latLng.lng()];
+                console.log("click point=", result) ;
+                transition(result);
+            });
+
+            var gCenter = new google.maps.LatLng(24.930000, 121.280000) ;
+
+            // // Create markers.
+            // features.forEach(function (feature) {
+            //     var marker = new google.maps.Marker({
+            //         position: feature.position,
+            //         icon: icons[feature.type].icon,
+            //         map: map
+            //     });
+            // });
+
+            var legend = document.getElementById('legend');
+
+            map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(legend);
+
+
+            var numDeltas = 100;
+            var delay = 10; //milliseconds
+            var i = 0;
+            var deltaLat;
+            var deltaLng;
+
+            function transition(result){
+                i = 0;
+                deltaLat = (result[0] - position[0])/numDeltas;
+                deltaLng = (result[1] - position[1])/numDeltas;
+                moveMarker();
+            }
+
+            function moveMarker(){
+                position[0] += deltaLat;
+                position[1] += deltaLng;
+                var latlng = new google.maps.LatLng(position[0], position[1]);
+                marker.setTitle("Latitude:"+position[0]+" | Longitude:"+position[1]);
+                marker.setPosition(latlng);
+                if(i!=numDeltas){
+                    i++;
+                    setTimeout(moveMarker, delay);
+                }
+            }
+
+        }
+    </script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAkI0UQK6hLzN3w4NKI7PAmgUR9TMKD9C0&callback=initMap"></script>
+
+
+
+
+    <script src="main.js">
+    </script>
+    <script>
+        console.log("aa") ;
+    </script>
+</body>
+</html>
