@@ -59,10 +59,10 @@
     </div>
     <div id="map"></div>
     <div id="legend">
-        <span class="btn btn-light"><img width=25 height=25 src="img/fire.png"/>Wildfire</span>
-        <span class="btn btn-light"><img width=25 height=25 src="img/blade48blue.png"/>ET760 Select Drone</span>
-        <span class="btn btn-light"><img width=25 height=25 src="img/blade32green2.png"/>Active Drone</span>
-        <span class="btn btn-light"><img width=25 height=25 src="img/blade32coffee.png"/>Home Drone</span>
+        <span class="btn btn-light"><img width=25 height=25 src="https://scsonic.github.io/NASA2019_et760/web/static/img/fire.png"/>Wildfire</span>
+        <span class="btn btn-light"><img width=25 height=25 src="https://scsonic.github.io/NASA2019_et760/web/static/img/blade48blue.png"/>ET760 Select Drone</span>
+        <span class="btn btn-light"><img width=25 height=25 src="https://scsonic.github.io/NASA2019_et760/web/static/img/blade32green2.png"/>Active Drone</span>
+        <span class="btn btn-light"><img width=25 height=25 src="https://scsonic.github.io/NASA2019_et760/web/static/img/blade32coffee.png"/>Home Drone</span>
         <span class="btn btn-light"><img width=25 height=25 src="https://maps.google.com/mapfiles/kml/shapes/info-i_maps.png"/>Info</span>
     </div>
 
@@ -185,7 +185,7 @@
                 var fire = new google.maps.Marker({
                     position: new google.maps.LatLng(gLat+getRnd(5), gLon+getRnd(5) ),
                     map: map,
-                    icon: 'img/fire32.png'
+                    icon: 'https://scsonic.github.io/NASA2019_et760/web/static/img/fire32.png'
                 });
                 console.log("push one fire") ;
                 fireList.push(fire) ;
@@ -196,7 +196,7 @@
                 var drone = new google.maps.Marker({
                     position: new google.maps.LatLng(gLat+getRnd(5), gLon+getRnd(5) ),
                     map: map,
-                    icon: 'img/blade32green2.png'
+                    icon: 'https://scsonic.github.io/NASA2019_et760/web/static/img/blade32green2.png'
                 });
                 drone.posX = gLat+getRnd(30) ;
                 drone.posY = gLon+getRnd(30) ;
@@ -277,13 +277,13 @@
                         drone.posX = drone._endX ;
                         drone.posY = drone._endY ;
                         transitionV2(drone, [drone._startX, drone._startY]) ;    
-                        drone.setIcon('img/blade32green2.png') ;
+                        drone.setIcon('https://scsonic.github.io/NASA2019_et760/web/static/img/blade32green2.png') ;
                     } else if (drone._dir == 2) {
                         drone._dir = 1
                         drone.posX = drone._startX ;
                         drone.posY = drone._startY ;
                         transitionV2(drone, [drone._endX, drone._endY]) ; 
-                        drone.setIcon('img/blade32coffee.png') ;
+                        drone.setIcon('https://scsonic.github.io/NASA2019_et760/web/static/img/blade32coffee.png') ;
                     }
                     else if ( drone_dir == 3 ) {
 
@@ -303,7 +303,7 @@
             var marker = new google.maps.Marker({
                 position: latlng,
                 map: map,
-                icon: 'img/blade48blue.png',
+                icon: 'https://scsonic.github.io/NASA2019_et760/web/static/img/blade48blue.png',
                 title: "State: AirDrop<BR>Power: 50%<BR>Owner: Harry Poter"
             });
 
