@@ -13,7 +13,7 @@ function recentWarning(callback) {
 
 function initPatrol() {
     console.log("initPatrol !!") ;
-    var patrolCount = 5 ;
+    var patrolCount = 8 ;
 
     for ( var d = 0 ; d < patrolCount ; d = d + 1) {
         var usingIcon = 'img/fire32.png' 
@@ -41,11 +41,8 @@ function initPatrol() {
         drone.pList.push( [gLat + dis , gLon + 0    ] ) ;
         drone.pList.push( [gLat + d2  , gLon + dis  ] ) ;
 
-
-
-
         drone._id = "p" + d ;
-        drone._numDeltas = 80 ;
+        drone._numDeltas = 60 ;
         drone._delay = 40 + getIntRnd(5); //milliseconds
         drone._cnt = 0 ;
         drone._deltaLat = 0.0 ;
@@ -58,11 +55,20 @@ function initPatrol() {
         }
 
         if ( d == 4  || d == 3) {
-            
             drone._numDeltas = 40 ;
         }
         if ( d == 4 ) {
             drone.pList = drone.pList.reverse() ;
+        }
+        if ( d >= 5 ) {
+            drone.pList = []
+            for (var i = 0 ; i < yellowCoords.length ; i++ ) {
+                drone.pList.push( [yellowCoords[i].lat, yellowCoords[i].lng] ) ;
+            }
+            console.log("no > 5 =", drone.pList ) ;
+            //drone.setIcon('img/blade48blue.png') ;
+            drone._numDeltas = 20 ;
+            drone._dir = Math.floor(Math.random() *( yellowCoords.length / 2 )) ;
         }
 
         
@@ -116,4 +122,14 @@ function initPatrol() {
 
         console.log("push one p-drone") ;
     }
+}
+
+
+function genDroneList() {
+    data = [] ;
+
+    for (var i = 0 ; i < data.length ; i++ ) {
+        $("#trList").append() ;    
+    }
+    
 }
