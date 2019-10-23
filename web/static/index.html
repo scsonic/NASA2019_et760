@@ -51,11 +51,33 @@
             background-color :  rgba(200,200,200,0.6)
 
         }
+        div.navi {
+            padding: 1em;
+            float: left  ;
+        }
+        div.navi_left {
+            float:right  ;
+        }
+
+        div.navi span.title {
+            text-size: 10em ;
+        }
     </style>
 </head>
 <body>
     <div class=navi>
-        <H2> Honeycomb System by ET760 </H2>
+        <span class="title">Honeycomb System by ET760 </span>
+
+        <div class="navi_left">
+
+            <div class="btn btn-light">
+                <div class="custom-control custom-switch">
+                    <input type="checkbox" class="custom-control-input" id="swArea">
+                    <label class="custom-control-label" for="swArea">Predit Danger Area</label>
+                </div>
+            </div>
+        </div>
+
     </div>
     <div id="map"></div>
     <div id="legend">
@@ -125,12 +147,32 @@
     <script>
         var videoIndex = 0 ;
 
-        var gLat = 25.16593200;
-        var gLon = 121.57407800;
+        var map; // global google map !! 
+        var gLat = 25.167011462884872 ;
+        var gLon = 121.56971898998802 ;
         var position = [gLat, gLon] ;
 
         var fireList = [] ;
         var droneList = [] ;
+
+        var areaInfoWindow ;
+        var bermudaTriangle ;
+        var yellowTriangle ; 
+
+        $('#swArea').change(function() {
+            console.log("ret=" + $(this).is(':checked')) ;
+            var isCheck = $(this).is(':checked') ;
+            if (isCheck) {
+                bermudaTriangle.setMap(map);    
+                yellowTriangle.setMap(map) ;
+            }
+            else {
+                bermudaTriangle.setMap(null);
+                yellowTriangle.setMap(nul) ;
+            }
+            
+
+        });
 
         function getRnd(x){
             var t = Math.floor(Math.random()*x) ;
@@ -147,9 +189,9 @@
         function initMap() {
             console.log("init map start") ;
             var latlng = new google.maps.LatLng(gLat, gLon);
-            var map = new google.maps.Map(document.getElementById('map'), {
-                center: { lat: 25.16593200, lng:  121.57407800 },
-                zoom: 15,
+            map = new google.maps.Map(document.getElementById('map'), {
+                center: { lat: gLat, lng: gLon },
+                zoom: 18,
                 mapTypeId: 'satellite',
                 mapTypeControl: false,
                 zoomControl: true,
@@ -159,6 +201,78 @@
                 scaleControl: true,
                 streetViewControl: false,
            });
+
+                    // Define the LatLng coordinates for the polygon.
+            var triangleCoords = [
+                {lat: 25.16744600115163, lng: 121.56976458754127 },
+                {lat: 25.16733433224769, lng: 121.56930324759071 },
+                {lat: 25.166873090039125, lng: 121.56932470526283 },
+                {lat: 25.166693447864784, lng: 121.56964657034462 },
+                {lat: 25.166950773059575, lng: 121.57020446981971 },
+                {lat: 25.16738288395761, lng: 121.57000598635261 }
+                 // {lat: gLat+0.1, lng: gLon+0.1},
+                 // {lat: gLat+0.1, lng: gLon-0.1 },
+                 // {lat: gLat-0.1, lng: gLon-0.1 },
+                 // {lat: gLat-0.1, lng: gLon+0.1},
+            ];
+
+            // Construct the polygon.
+            bermudaTriangle = new google.maps.Polygon({
+              paths: triangleCoords,
+              strokeColor: '#FF0000',
+              strokeOpacity: 0.8,
+              strokeWeight: 3,
+              fillColor: '#FF0000',
+              fillOpacity: 0.35
+            });
+            bermudaTriangle.setMap(map);
+
+            var yellowCoords = [
+                {lat: 25.16749455281712, lng: 121.57062825884407  },
+                {lat: 25.167858689691975, lng: 121.5697324010331  },
+                {lat: 25.167766441786533, lng: 121.56910476412361 },
+                {lat: 25.167552814790174, lng: 121.56863805975502 },
+                {lat: 25.16664975107966, lng: 121.56858977999275  },
+                {lat: 25.166193361499197, lng: 121.56932470526283 },
+                {lat: 25.165843785346215, lng: 121.57018837656562 },
+                {lat: 25.165819509187255, lng: 121.57101986136024 },
+                {lat: 25.166169085409855, lng: 121.57165554489677 },
+                {lat: 25.1666788822715, lng: 121.57195327009742   },
+                {lat: 25.16705758713192, lng: 121.57169309582298  },
+                {lat: 25.167397449466826, lng: 121.57053974594658 }
+            ];
+
+            // Construct the polygon.
+            yellowTriangle = new google.maps.Polygon({
+              paths: yellowCoords,
+              strokeColor: '#FFFF00',
+              strokeOpacity: 0.8,
+              strokeWeight: 3,
+              fillColor: '#FFFF00',
+              fillOpacity: 0.35
+            });
+            //yellowTriangle.setMap(map);
+
+
+
+            /** @this {google.maps.Polygon} */
+            function showArrays(event) {
+                console.log("{lat: " + event.latLng.lat() + ", lng: " + event.latLng.lng() + " }")
+                var contentString = '<b>Bermuda Triangle polygon</b><br>' +
+                    'Clicked location: <br>' 
+
+                // Replace the info window's content and position.
+                areaInfoWindow.setContent(contentString);
+                areaInfoWindow.setPosition(event.latLng);
+                areaInfoWindow.open(map);
+            }
+
+
+
+            // Add a listener for the click event.
+            bermudaTriangle.addListener('click', showArrays);
+            areaInfoWindow = new google.maps.InfoWindow;
+
 
             function displayVideo(result) {
                 videoIndex = videoIndex + 1 ;
@@ -288,7 +402,7 @@
                     else if ( drone_dir == 3 ) {
 
                     }
-                    console.log("drone END!!") ;
+                    //console.log("drone END!!") ;
                 }
             }
 
