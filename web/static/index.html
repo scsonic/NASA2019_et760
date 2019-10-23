@@ -33,11 +33,17 @@
 
         #legend {
             padding: 5px ;
-
             background-color :  rgba(200,200,200,0.6)
         }
         #legend span{
-            margin: 5px;
+            margin-top: 3px;
+            width: 100%;
+            float:left ;
+            text-align: left;
+        }
+
+        #legend span img {
+            margin-right: 5px;
         }
 
         #dronelist {
@@ -81,11 +87,20 @@
     </div>
     <div id="map"></div>
     <div id="legend">
-        <span class="btn btn-light"><img width=25 height=25 src="https://scsonic.github.io/NASA2019_et760/web/static/img/fire.png"/>Wildfire</span>
-        <span class="btn btn-light"><img width=25 height=25 src="https://scsonic.github.io/NASA2019_et760/web/static/img/blade48blue.png"/>ET760 Select Drone</span>
-        <span class="btn btn-light"><img width=25 height=25 src="https://scsonic.github.io/NASA2019_et760/web/static/img/blade32green2.png"/>Active Drone</span>
-        <span class="btn btn-light"><img width=25 height=25 src="https://scsonic.github.io/NASA2019_et760/web/static/img/blade32coffee.png"/>Home Drone</span>
+        <span class="btn btn-light btn-sm"><img width=25 height=25 src="https://scsonic.github.io/NASA2019_et760/web/static/img/fire.png"/>Wildfire</span><BR>        
+        <span class="btn btn-light btn-xs"><img width=25 height=25 src="https://scsonic.github.io/NASA2019_et760/web/static/img/blade48blue.png"/>Selected Drone</span><BR>
+
+        <span class="btn btn-light"><img width=25 height=25 src="https://scsonic.github.io/NASA2019_et760/web/static/img/blade32green2.png"/>Gov Drone</span><BR>
+
+         <span class="btn btn-light"><img width=25 height=25 src="https://scsonic.github.io/NASA2019_et760/web/static/img/blade32green2.png"/>Fire Bee: 阻燃</span><BR>
+
+          <span class="btn btn-light"><img width=25 height=25 src="https://scsonic.github.io/NASA2019_et760/web/static/img/blade32green2.png"/>Fire Bee: Moniter</span><BR>
+
+        <span class="btn btn-light"><img width=25 height=25 src="https://scsonic.github.io/NASA2019_et760/web/static/img/blade32coffee.png"/>Return Drone</span>
+
+        <!--
         <span class="btn btn-light"><img width=25 height=25 src="https://maps.google.com/mapfiles/kml/shapes/info-i_maps.png"/>Info</span>
+    -->
     </div>
 
     <div id="dronelist">
@@ -148,8 +163,9 @@
         var videoIndex = 0 ;
 
         var map; // global google map !! 
-        var gLat = 25.167011462884872 ;
-        var gLon = 121.56971898998802 ;
+          
+        var gLat = 24.04023 ;
+        var gLon =  120.56805 ;
         var position = [gLat, gLon] ;
 
         var fireList = [] ;
@@ -198,7 +214,7 @@
             var latlng = new google.maps.LatLng(gLat, gLon);
             map = new google.maps.Map(document.getElementById('map'), {
                 center: { lat: gLat, lng: gLon },
-                zoom: 18,
+                zoom: 17,
                 mapTypeId: 'satellite',
                 mapTypeControl: false,
                 zoomControl: true,
@@ -211,16 +227,27 @@
 
                     // Define the LatLng coordinates for the polygon.
             var triangleCoords = [
-                {lat: 25.16744600115163, lng: 121.56976458754127 },
-                {lat: 25.16733433224769, lng: 121.56930324759071 },
-                {lat: 25.166873090039125, lng: 121.56932470526283 },
-                {lat: 25.166693447864784, lng: 121.56964657034462 },
-                {lat: 25.166950773059575, lng: 121.57020446981971 },
-                {lat: 25.16738288395761, lng: 121.57000598635261 }
-                 // {lat: gLat+0.1, lng: gLon+0.1},
-                 // {lat: gLat+0.1, lng: gLon-0.1 },
-                 // {lat: gLat-0.1, lng: gLon-0.1 },
-                 // {lat: gLat-0.1, lng: gLon+0.1}
+{lat: 24.039482884085942, lng: 120.56803927116391 }, 
+{lat: 24.039600463272016, lng: 120.56826994113919 }, 
+{lat: 24.0397670336014, lng: 120.56851133995053 }, 
+{lat: 24.039909108123414, lng: 120.56877956085202 }, 
+{lat: 24.04010997183467, lng: 120.56906923942563 }, 
+{lat: 24.040315734335145, lng: 120.56924626522061 }, 
+{lat: 24.040658671103436, lng: 120.56932673149106 }, 
+{lat: 24.040942818017815, lng: 120.5691175191879 }, 
+{lat: 24.041153478255463, lng: 120.56876346759793 }, 
+{lat: 24.041251459643625, lng: 120.56829139881131 }, 
+{lat: 24.0412808540455, lng: 120.56804463558194 }, 
+{lat: 24.041065294942218, lng: 120.56753501586911 }, 
+{lat: 24.04094771709704, lng: 120.56749210052487 }, 
+{lat: 24.040756652869053, lng: 120.56736335449216 }, 
+{lat: 24.04055089107492, lng: 120.56737408332822 }, 
+{lat: 24.040472505542834, lng: 120.5674599140167 }, 
+{lat: 24.040183458479824, lng: 120.56758866004941 }, 
+{lat: 24.039962998418247, lng: 120.56763157539365 }, 
+{lat: 24.03974743710327, lng: 120.5677120416641 }, 
+{lat: 24.039566169353872, lng: 120.56776568584439 }, 
+{lat: 24.03954167369243, lng: 120.56787297420499 }
             ];
 
             // Construct the polygon.
@@ -235,12 +262,35 @@
             //bermudaTriangle.setMap(map);
 
             var yellowCoords = [
-                {lat: 25.16620332505583, lng: 121.57158331390303 },
-                {lat: 25.168091989839528, lng: 121.56998739953917 },
-                {lat: 25.16792205975836, lng: 121.56875358339232 },
-                {lat: 25.167426833599702, lng: 121.56856046434325 },
-                {lat: 25.166795660090195, lng: 121.56876967664641 },
-                {lat: 25.16619361462145, lng: 121.5698479246704 }
+{lat: 24.039066456936286, lng: 120.56802317790982 }, 
+{lat: 24.038997868805684, lng: 120.5684523313522 }, 
+{lat: 24.039301615963197, lng: 120.56902095966336 }, 
+{lat: 24.03954657282509, lng: 120.56934282474515 }, 
+{lat: 24.03986991516752, lng: 120.56977197818753 }, 
+{lat: 24.040418615461764, lng: 120.57021186046597 }, 
+{lat: 24.040928120779043, lng: 120.57051226787564 }, 
+{lat: 24.041506210903034, lng: 120.57071611576077 }, 
+{lat: 24.041868740670235, lng: 120.57110235385892 }, 
+{lat: 24.042339048032563, lng: 120.57099506549832 }, 
+{lat: 24.04229005776268, lng: 120.57038352184293 }, 
+{lat: 24.042407634379018, lng: 120.5699114530563 }, 
+{lat: 24.042407634379018, lng: 120.56957885913846 }, 
+{lat: 24.042407634379018, lng: 120.5690638750076 }, 
+{lat: 24.042201875229775, lng: 120.56887075595853 }, 
+{lat: 24.04193732726784, lng: 120.56838795833585 }, 
+{lat: 24.042025509982377, lng: 120.56796953372952 }, 
+{lat: 24.041868740670235, lng: 120.5676047533035 }, 
+{lat: 24.041721769266324, lng: 120.56750819377896 }, 
+{lat: 24.04144742219571, lng: 120.56736871891019 }, 
+{lat: 24.041251459643625, lng: 120.56714341335294 }, 
+{lat: 24.040996707878946, lng: 120.56711122684476 }, 
+{lat: 24.040526395601283, lng: 120.5671004980087 }, 
+{lat: 24.040193256695996, lng: 120.56725070171353 }, 
+{lat: 24.039997292230453, lng: 120.56728288822171 }, 
+{lat: 24.039732739727707, lng: 120.56727215938565 }, 
+{lat: 24.039477984950853, lng: 120.56737944774625 }, 
+{lat: 24.039380002209835, lng: 120.56752965145108 }, 
+{lat: 24.039272221108373, lng: 120.56770131282804 }
             ];
 
             // Construct the polygon.
@@ -307,11 +357,18 @@
             }
 
             var droneCount = 10 ;
+
+
             for ( var d = 0 ; d < droneCount ; d = d + 1) {
+                var usingIcon = 'https://scsonic.github.io/NASA2019_et760/web/static/img/blade32green2.png' ;
+                if ( d > 5 ) {
+                    usingIcon = 'img/blade48fire.png' 
+                }
+
                 var drone = new google.maps.Marker({
                     position: new google.maps.LatLng(gLat+getRndTiny(5), gLon+getRndTiny(5) ),
                     map: map,
-                    icon: 'https://scsonic.github.io/NASA2019_et760/web/static/img/blade32green2.png'
+                    icon: usingIcon
                 });
                 drone.posX = gLat+getRndTiny(30) ;
                 drone.posY = gLon+getRndTiny(30) ;
@@ -339,6 +396,8 @@
                     displayVideo() ;
                 });
             }
+
+
 
             var gCenter = new google.maps.LatLng(24.930000, 121.280000) ;
 
@@ -408,6 +467,8 @@
             }
 
 
+
+
             // ==========================
 
 
@@ -453,17 +514,55 @@
             }
 
 
+
+            // ===================================
+             for ( var d = 0 ; d < droneCount ; d = d + 1) {
+                var usingIcon = 'https://scsonic.github.io/NASA2019_et760/web/static/img/blade32green2.png' ;
+                if ( d > 5 ) {
+                    usingIcon = 'img/blade48fire.png' 
+                }
+
+                var drone = new google.maps.Marker({
+                    position: new google.maps.LatLng(gLat+getRndTiny(5), gLon+getRndTiny(5) ),
+                    map: map,
+                    icon: usingIcon
+                });
+                drone.posX = gLat+getRndTiny(30) ;
+                drone.posY = gLon+getRndTiny(30) ;
+
+                drone._id = "d" + d ;
+                drone._numDeltas = 80 + getIntRnd(20) ;
+                drone._delay = 50 + getIntRnd(10); //milliseconds
+                drone._cnt = 0 ;
+                drone._deltaLat = 0.0 ;
+                drone._deltaLng = 0.0 ;
+
+                drone._startX = gLat+getRndTiny(1) ;
+                drone._startY = gLon+getRndTiny(1) ;
+                drone._endX = gLat+getRndTiny(100) ;
+                drone._endY = gLon+getRndTiny(100) ;
+                drone._dir = 1 ;
+
+                console.log("push one drone") ;
+                droneList.push(drone) ;
+                //transitionV2(drone, [gLat+getRnd(200), gLon+getRnd(200)]);
+
+                droneList[ droneList.length -1 ].addListener('click',function(target){
+                    console.log(target) ;
+                    console.log("get done id=" + target ) ;
+                    displayVideo() ;
+                });
+            }
+
         }
     </script>
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAkI0UQK6hLzN3w4NKI7PAmgUR9TMKD9C0&callback=initMap"></script>
 
 
-
-
     <script src="main.js">
     </script>
     <script>
-        console.log("aa") ;
+        
     </script>
 </body>
 </html>
