@@ -92,7 +92,7 @@
 
         <span class="btn btn-light"><img width=25 height=25 src="https://scsonic.github.io/NASA2019_et760/web/static/img/blade32green2.png"/>Gov Drone</span><BR>
 
-         <span class="btn btn-light"><img width=25 height=25 src="https://scsonic.github.io/NASA2019_et760/web/static/img/blade32green2.png"/>Fire Bee: 阻燃</span><BR>
+         <span class="btn btn-light"><img width=25 height=25 src="https://scsonic.github.io/NASA2019_et760/web/static/img/blade32green2.png"/>Fire Bee: AirDrone</span><BR>
 
           <span class="btn btn-light"><img width=25 height=25 src="https://scsonic.github.io/NASA2019_et760/web/static/img/blade32green2.png"/>Fire Bee: Moniter</span><BR>
 
@@ -345,7 +345,7 @@
 
 
             // ============ INIT FIRE POSITION
-            var fireCount = 6;
+            var fireCount = 1;
             for (var i = 0 ; i < fireCount ; i = i + 1 ) {
                 var fire = new google.maps.Marker({
                     position: new google.maps.LatLng(gLat+getRndTiny(3), gLon+getRndTiny(3) ),
@@ -356,7 +356,7 @@
                 fireList.push(fire) ;
             }
 
-            var droneCount = 10 ;
+            var droneCount = 1 ;
 
 
             for ( var d = 0 ; d < droneCount ; d = d + 1) {
@@ -554,6 +554,9 @@
                 });
             }
 
+            initPatrol() ;
+
+            console.log("end of InitMap()") ;
         }
     </script>
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAkI0UQK6hLzN3w4NKI7PAmgUR9TMKD9C0&callback=initMap"></script>
