@@ -13,7 +13,7 @@ function recentWarning(callback) {
 
 function initPatrol() {
     console.log("initPatrol !!") ;
-    var patrolCount = 6 ;
+    var patrolCount = 5 ;
 
     for ( var d = 0 ; d < patrolCount ; d = d + 1) {
         var usingIcon = 'img/fire32.png' 
@@ -27,8 +27,12 @@ function initPatrol() {
         drone.posY = gLon+getRndTiny(30) ;
 
 
-        var dis = 0.005 ;
+        var dis = 0.0009 ;
+        if ( d == 4  || d == 3) {
+            dis = dis + 0.0004 ;
+        }
         var d2 = dis / 2 ;
+
         drone.pList = [] ;
         drone.pList.push( [gLat - d2  , gLon + dis  ] ) ;
         drone.pList.push( [gLat - dis , gLon + 0    ] ) ;
@@ -37,16 +41,34 @@ function initPatrol() {
         drone.pList.push( [gLat + dis , gLon + 0    ] ) ;
         drone.pList.push( [gLat + d2  , gLon + dis  ] ) ;
 
+
+
+
         drone._id = "p" + d ;
-        drone._numDeltas = 20
-        drone._delay = 20 + getIntRnd(10); //milliseconds
+        drone._numDeltas = 80 ;
+        drone._delay = 40 + getIntRnd(5); //milliseconds
         drone._cnt = 0 ;
         drone._deltaLat = 0.0 ;
         drone._deltaLng = 0.0 ;
 
-        drone._dir = 1 ;
+        drone._dir = 0;
+        if ( d < 3 ) {
+            drone._numDeltas = drone._numDeltas ;
+            drone._dir = d * 2;
+        }
+
+        if ( d == 4  || d == 3) {
+            
+            drone._numDeltas = 40 ;
+        }
+        if ( d == 4 ) {
+            drone.pList = drone.pList.reverse() ;
+        }
+
+        
         drone._startX = drone.pList[ drone._dir ][0] ;
         drone._startY = drone.pList[ drone._dir ][1] ;
+        drone.setPosition(new google.maps.LatLng(drone._startX,drone._startY))  ;
 
         var nextDir = (drone._dir + 1) % drone.pList.length
         drone._endX = drone.pList[ drone._dir ][0] ;
@@ -80,7 +102,7 @@ function initPatrol() {
                 drone._cnt = 0 ;
                 drone._deltaLat = 0.0 ;
                 drone._deltaLng = 0.0 ;
-                console.log("p-drone " + drone._id + " dir=" + drone._dir) ;
+                //console.log("p-drone " + drone._id + " dir=" + drone._dir) ;
                 drone.posX = drone.pList[drone._dir][0] ;
                 drone.posY = drone.pList[drone._dir][1] ;
                 drone._dir = (drone._dir + 1) % drone.pList.length ;
@@ -93,11 +115,5 @@ function initPatrol() {
         drone.transitionV3( drone, drone.pList[ drone._dir ] )
 
         console.log("push one p-drone") ;
-        // droneList.push(drone) ;
-
-        // droneList[ droneList.length -1 ].addListener('click',function(target){
-        //     console.log(target) ;
-        //     console.log("get done id=" + target ) ;
-        // });
     }
 }
