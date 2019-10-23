@@ -73,7 +73,7 @@
             <div class="btn btn-light">
                 <div class="custom-control custom-switch">
                     <input type="checkbox" class="custom-control-input" id="swArea">
-                    <label class="custom-control-label" for="swArea">Predit Danger Area</label>
+                    <label class="custom-control-label" for="swArea">Warning Area</label>
                 </div>
             </div>
         </div>
@@ -160,7 +160,7 @@
         var yellowTriangle ; 
 
         $('#swArea').change(function() {
-            console.log("ret=" + $(this).is(':checked')) ;
+            //console.log("ret=" + $(this).is(':checked')) ;
             var isCheck = $(this).is(':checked') ;
             if (isCheck) {
                 bermudaTriangle.setMap(map);    
@@ -168,7 +168,7 @@
             }
             else {
                 bermudaTriangle.setMap(null);
-                yellowTriangle.setMap(nul) ;
+                yellowTriangle.setMap(null) ;
             }
             
 
@@ -178,9 +178,16 @@
             var t = Math.floor(Math.random()*x) ;
             t = t - x / 2;
             t = t * 0.0005 ; ;
-
             return t ;
         };
+
+        function getRndTiny(x){
+            var t = Math.floor(Math.random()*x) ;
+            t = t - x / 2;
+            t = t * 0.0001 ; ;
+            return t ;
+        };
+
 
         function getIntRnd(x){
             return Math.floor(Math.random()*x)
@@ -213,7 +220,7 @@
                  // {lat: gLat+0.1, lng: gLon+0.1},
                  // {lat: gLat+0.1, lng: gLon-0.1 },
                  // {lat: gLat-0.1, lng: gLon-0.1 },
-                 // {lat: gLat-0.1, lng: gLon+0.1},
+                 // {lat: gLat-0.1, lng: gLon+0.1}
             ];
 
             // Construct the polygon.
@@ -225,21 +232,15 @@
               fillColor: '#FF0000',
               fillOpacity: 0.35
             });
-            bermudaTriangle.setMap(map);
+            //bermudaTriangle.setMap(map);
 
             var yellowCoords = [
-                {lat: 25.16749455281712, lng: 121.57062825884407  },
-                {lat: 25.167858689691975, lng: 121.5697324010331  },
-                {lat: 25.167766441786533, lng: 121.56910476412361 },
-                {lat: 25.167552814790174, lng: 121.56863805975502 },
-                {lat: 25.16664975107966, lng: 121.56858977999275  },
-                {lat: 25.166193361499197, lng: 121.56932470526283 },
-                {lat: 25.165843785346215, lng: 121.57018837656562 },
-                {lat: 25.165819509187255, lng: 121.57101986136024 },
-                {lat: 25.166169085409855, lng: 121.57165554489677 },
-                {lat: 25.1666788822715, lng: 121.57195327009742   },
-                {lat: 25.16705758713192, lng: 121.57169309582298  },
-                {lat: 25.167397449466826, lng: 121.57053974594658 }
+                {lat: 25.16620332505583, lng: 121.57158331390303 },
+                {lat: 25.168091989839528, lng: 121.56998739953917 },
+                {lat: 25.16792205975836, lng: 121.56875358339232 },
+                {lat: 25.167426833599702, lng: 121.56856046434325 },
+                {lat: 25.166795660090195, lng: 121.56876967664641 },
+                {lat: 25.16619361462145, lng: 121.5698479246704 }
             ];
 
             // Construct the polygon.
@@ -294,10 +295,10 @@
 
 
             // ============ INIT FIRE POSITION
-            var fireCount = 4;
+            var fireCount = 6;
             for (var i = 0 ; i < fireCount ; i = i + 1 ) {
                 var fire = new google.maps.Marker({
-                    position: new google.maps.LatLng(gLat+getRnd(5), gLon+getRnd(5) ),
+                    position: new google.maps.LatLng(gLat+getRndTiny(3), gLon+getRndTiny(3) ),
                     map: map,
                     icon: 'https://scsonic.github.io/NASA2019_et760/web/static/img/fire32.png'
                 });
@@ -305,27 +306,27 @@
                 fireList.push(fire) ;
             }
 
-            var droneCount = 15 ;
+            var droneCount = 10 ;
             for ( var d = 0 ; d < droneCount ; d = d + 1) {
                 var drone = new google.maps.Marker({
-                    position: new google.maps.LatLng(gLat+getRnd(5), gLon+getRnd(5) ),
+                    position: new google.maps.LatLng(gLat+getRndTiny(5), gLon+getRndTiny(5) ),
                     map: map,
                     icon: 'https://scsonic.github.io/NASA2019_et760/web/static/img/blade32green2.png'
                 });
-                drone.posX = gLat+getRnd(30) ;
-                drone.posY = gLon+getRnd(30) ;
+                drone.posX = gLat+getRndTiny(30) ;
+                drone.posY = gLon+getRndTiny(30) ;
 
                 drone._id = "d" + d ;
                 drone._numDeltas = 80 + getIntRnd(20) ;
-                drone._delay = 30 + getIntRnd(30); //milliseconds
+                drone._delay = 50 + getIntRnd(10); //milliseconds
                 drone._cnt = 0 ;
                 drone._deltaLat = 0.0 ;
                 drone._deltaLng = 0.0 ;
 
-                drone._startX = gLat+getRnd(1) ;
-                drone._startY = gLon+getRnd(1) ;
-                drone._endX = gLat+getRnd(100) ;
-                drone._endY = gLon+getRnd(100) ;
+                drone._startX = gLat+getRndTiny(1) ;
+                drone._startY = gLon+getRndTiny(1) ;
+                drone._endX = gLat+getRndTiny(100) ;
+                drone._endY = gLon+getRndTiny(100) ;
                 drone._dir = 1 ;
 
                 console.log("push one drone") ;
