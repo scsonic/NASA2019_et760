@@ -160,14 +160,14 @@ function initStopExit() {
         if ( signToggle ) {
             stop1.setIcon('img/drone_stop.png') ;
             stop2.setIcon('img/drone_stop.png') ;
-            exit1.setIcon('img/drone_exit.png') ;
-            exit2.setIcon('img/drone_exit.png') ;
+            exit1.setIcon('img/drone_exit_left.png') ;
+            exit2.setIcon('img/drone_exit_left.png') ;
         }
         else {
             stop1.setIcon('img/drone_stop_darker.png') ;
             stop2.setIcon('img/drone_stop_darker.png') ;
-            exit1.setIcon('img/drone_exit_darker.png') ;
-            exit2.setIcon('img/drone_exit_darker.png') ;
+            exit1.setIcon('img/drone_exit_left_darker.png') ;
+            exit2.setIcon('img/drone_exit_left_darker.png') ;
         }
 
         setTimeout(changeStopExit, 500) ;
