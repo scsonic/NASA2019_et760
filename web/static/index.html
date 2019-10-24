@@ -71,7 +71,7 @@
 
             <div class="btn btn-light">
                 <div class="custom-control custom-switch">
-                    <input type="checkbox" class="custom-control-input" id="swArea">
+                    <input type="checkbox" class="custom-control-input" id="swArea" checked>
                     <label class="custom-control-label" for="swArea">Warning Area</label>
                 </div>
             </div>
@@ -80,18 +80,20 @@
     </div>
     <div id="map"></div>
     <div id="legend">
-        <span class="btn btn-light btn-sm"><img width=25 height=25 src="https://scsonic.github.io/NASA2019_et760/web/static/img/fire.png"/>Wildfire</span><BR>        
-        <span class="btn btn-light btn-xs"><img width=25 height=25 src="https://scsonic.github.io/NASA2019_et760/web/static/img/blade48blue.png"/>Selected Drone</span><BR>
+        <span class="btn btn-light btn-sm"><img width=48 height=26 src="https://scsonic.github.io/NASA2019_et760/web/static/img/fire.png"/>Wildfire</span><BR>        
+        <span class="btn btn-light btn-xs"><img width=48 height=26 src="img/green_circle48.png"/>Manual</span><BR>
 
-        <span class="btn btn-light"><img width=25 height=25 src="https://scsonic.github.io/NASA2019_et760/web/static/img/blade32green2.png"/>Gov S</span><BR>
+        <span class="btn btn-light"><img width=48 height=26 src="img/drone_yellow48.png"/>Gov S</span><BR>
 
-        <span class="btn btn-light"><img width=25 height=25 src="https://scsonic.github.io/NASA2019_et760/web/static/img/blade32green2.png"/>Gov R</span><BR>
+        <span class="btn btn-light"><img width=48 height=26   src="img/drone_black48.png"/>Gov Relief</span><BR>
 
-         <span class="btn btn-light"><img width=25 height=25 src="https://scsonic.github.io/NASA2019_et760/web/static/img/blade32green2.png"/>Fire Bee S</span><BR>
+        <span class="btn btn-light"><img width=48 height=26  src="img/drone_yellow48.png"/>Fire Bee S</span><BR>
 
-          <span class="btn btn-light"><img width=25 height=25 src="https://scsonic.github.io/NASA2019_et760/web/static/img/blade32green2.png"/>Fire Bee R</span><BR>
+        <span class="btn btn-light"><img width=48 height=26 src="img/drone_black64.png"/>Fire Bee R</span><BR>
 
-        <span class="btn btn-light"><img width=25 height=25 src="https://scsonic.github.io/NASA2019_et760/web/static/img/blade32coffee.png"/>Return Drone</span>
+        <span class="btn btn-light"><img width=48 height=26   src="img/drone_gray48.png"/>Return Drone</span>
+        <span class="btn btn-light"><img width=48 height=26   src="img/yellow48.png"/>Danger Area</span>
+        <span class="btn btn-light"><img width=48 height=26   src="img/red48.png"/>Warning Area</span>
 
         <!--
         <span class="btn btn-light"><img width=25 height=25 src="https://maps.google.com/mapfiles/kml/shapes/info-i_maps.png"/>Info</span>
@@ -113,53 +115,103 @@
           <thead>
             <tr>
               <th scope="col">#</th>
-              <th scope="col">UserName</th>
-              <th scope="col">Power </th>
+              <th scope="col">Owner</th>
+              <th scope="col">Power</th>
+              <th scope="col">Retardant</th>
               <th scope="col">State</th>
             </tr>
           </thead>
           <tbody id="trList">
             <tr>
               <th scope="row">1</th>
-              <td>Bob's Drone</td>
+              <td>Bob</td>
               <td>60%</td>
-              <td>Air Drop</td>
+              <td>80%</td>
+              <td>Relief</td>
             </tr>
             <tr>
               <th scope="row">2</th>
               <td>Pixhawk</td>
               <td>85%</td>
-              <td>Monitor</td>
+              <td>0%</td>
+              <td>Surveillance</td>
             </tr>
             <tr>
               <th scope="row">3</th>
               <td>Larry</td>
-              <td>30%</td>
-              <td>Home</td>
+              <td>15%</td>
+              <td>0%</td>
+              <td>Return</td>
             </tr>
             <tr>
               <th scope="row">4</th>
               <td>Jack</td>
               <td>41%</td>
-              <td>Air Drop</td>
+              <td>60%</td>
+              <td>Relief</td>
             </tr>
             <tr>
               <th scope="row">5</th>
               <td>NightHawk</td>
               <td>90%</td>
-              <td>Monitor</td>
+              <td>0%</td>
+              <td>Surveillance</td>
             </tr>
             <tr>
               <th scope="row">6</th>
               <td>pika</td>
               <td>99%</td>
-              <td>Monitor</td>
+              <td>0%</td>
+              <td>Surveillance</td>
             </tr>
             <tr>
               <th scope="row">7</th>
               <td>BuBuBu</td>
               <td>95%</td>
-              <td>Air Drop</td>
+              <td>0%</td>
+              <td>Surveillance</td>
+            </tr>
+            <tr>
+              <th scope="row">8</th>
+              <td>Gov </td>
+              <td>95%</td>
+              <td>0%</td>
+              <td>Surveillance</td>
+            </tr>
+            <tr>
+              <th scope="row">9</th>
+              <td>Gov </td>
+              <td>95%</td>
+              <td>0%</td>
+              <td>Surveillance</td>
+            </tr>
+            <tr>
+              <th scope="row">10</th>
+              <td>Gov </td>
+              <td>90%</td>
+              <td>0%</td>
+              <td>Surveillance</td>
+            </tr>
+            <tr>
+              <th scope="row">11</th>
+              <td>Gov </td>
+              <td>55%</td>
+              <td>0%</td>
+              <td>Surveillance</td>
+            </tr>
+            <tr>
+              <th scope="row">12</th>
+              <td>Pikachu </td>
+              <td>15%</td>
+              <td>0%</td>
+              <td>Return</td>
+            </tr>
+            <tr>
+              <th scope="row">13</th>
+              <td>Harry</td>
+              <td>14%</td>
+              <td>0%</td>
+              <td>Return</td>
             </tr>
           </tbody>
         </table>
@@ -173,6 +225,10 @@
 </div>
 
     <script>
+
+        //var url_base = "https://scsonic.github.io/NASA2019_et760/web/static/" ;
+        var base_url = '' ;
+
         var videoIndex = 0 ;
 
         var map; // global google map !! 
@@ -305,7 +361,7 @@
               fillColor: '#FF0000',
               fillOpacity: 0.35
             });
-            //bermudaTriangle.setMap(map);
+            bermudaTriangle.setMap(map);
 
             
 
@@ -318,7 +374,7 @@
               fillColor: '#FFFF00',
               fillOpacity: 0.35
             });
-            //yellowTriangle.setMap(map);
+            yellowTriangle.setMap(map);
 
 
 
@@ -366,7 +422,8 @@
                 var fire = new google.maps.Marker({
                     position: new google.maps.LatLng(gLat+getRndTiny(3), gLon+getRndTiny(3) ),
                     map: map,
-                    icon: 'https://scsonic.github.io/NASA2019_et760/web/static/img/fire32.png'
+                    zIndex:-100,
+                    icon: base_url + 'img/fire32.png'
                 });
                 console.log("push one fire") ;
                 fireList.push(fire) ;
@@ -376,7 +433,7 @@
 
 
             for ( var d = 0 ; d < droneCount ; d = d + 1) {
-                var usingIcon = 'https://scsonic.github.io/NASA2019_et760/web/static/img/blade32green2.png' ;
+                var usingIcon = 'img/drone_black64.png' ;
 
                 var drone = new google.maps.Marker({
                     position: new google.maps.LatLng(gLat+getRndTiny(5), gLon+getRndTiny(5) ),
@@ -464,13 +521,13 @@
                         drone.posX = drone._endX ;
                         drone.posY = drone._endY ;
                         transitionV2(drone, [drone._startX, drone._startY]) ;    
-                        drone.setIcon('https://scsonic.github.io/NASA2019_et760/web/static/img/blade32green2.png') ;
+                        drone.setIcon('img/drone_black64.png') ;
                     } else if (drone._dir == 2) {
                         drone._dir = 1
                         drone.posX = drone._startX ;
                         drone.posY = drone._startY ;
                         transitionV2(drone, [drone._endX, drone._endY]) ; 
-                        drone.setIcon('https://scsonic.github.io/NASA2019_et760/web/static/img/blade32coffee.png') ;
+                        drone.setIcon('img/drone_gray48.png') ;
                     }
                     else if ( drone_dir == 3 ) {
 
@@ -492,7 +549,7 @@
             var marker = new google.maps.Marker({
                 position: latlng,
                 map: map,
-                icon: 'https://scsonic.github.io/NASA2019_et760/web/static/img/blade48blue.png',
+                icon: 'img/drone_select48.png',
                 title: "State: AirDrop<BR>Power: 50%<BR>Owner: Harry Poter"
             });
 
@@ -531,6 +588,7 @@
             // ===================================
 
             initPatrol() ;
+            initStopExit() ;
 
             console.log("end of InitMap()") ;
         }

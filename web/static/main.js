@@ -13,10 +13,10 @@ function recentWarning(callback) {
 
 function initPatrol() {
     console.log("initPatrol !!") ;
-    var patrolCount = 8 ;
+    var patrolCount = 5 ;
 
     for ( var d = 0 ; d < patrolCount ; d = d + 1) {
-        var usingIcon = 'img/fire32.png' 
+        var usingIcon = 'img/drone_yellow48.png' 
 
         var drone = new google.maps.Marker({
             position: new google.maps.LatLng(gLat+getRndTiny(5), gLon+getRndTiny(5) ),
@@ -28,9 +28,9 @@ function initPatrol() {
 
 
         var dis = 0.0009 ;
-        if ( d == 4  || d == 3) {
-            dis = dis + 0.0004 ;
-        }
+        // if ( d == 4  || d == 3) {
+        //     dis = dis + 0.0004 ;
+        // }
         var d2 = dis / 2 ;
 
         drone.pList = [] ;
@@ -49,18 +49,12 @@ function initPatrol() {
         drone._deltaLng = 0.0 ;
 
         drone._dir = 0;
-        if ( d < 3 ) {
+        if ( d < 2 ) {
             drone._numDeltas = drone._numDeltas ;
-            drone._dir = d * 2;
+            drone._dir = d * 3;
         }
 
-        if ( d == 4  || d == 3) {
-            drone._numDeltas = 40 ;
-        }
-        if ( d == 4 ) {
-            drone.pList = drone.pList.reverse() ;
-        }
-        if ( d >= 5 ) {
+        if ( d >=2 && d <=4) {
             drone.pList = []
             for (var i = 0 ; i < yellowCoords.length ; i++ ) {
                 drone.pList.push( [yellowCoords[i].lat, yellowCoords[i].lng] ) ;
@@ -68,8 +62,9 @@ function initPatrol() {
             console.log("no > 5 =", drone.pList ) ;
             //drone.setIcon('img/blade48blue.png') ;
             drone._numDeltas = 20 ;
-            drone._dir = Math.floor(Math.random() *( yellowCoords.length / 2 )) ;
+            drone._dir = Math.floor(( d-2 ) * (yellowCoords.length / 3)); 
         }
+        console.log("get dir=" + drone._dir ) ;
 
         
         drone._startX = drone.pList[ drone._dir ][0] ;
@@ -115,7 +110,7 @@ function initPatrol() {
                 drone._startX = drone.pList[drone._dir][0] ;
                 drone._startY = drone.pList[drone._dir][1] ;
                 drone.transitionV3(drone, [drone._startX, drone._startY]) ;    
-                drone.setIcon('https://scsonic.github.io/NASA2019_et760/web/static/img/fire32.png') ;
+                drone.setIcon('img/drone_yellow48.png') ;
             }
         }
         drone.transitionV3( drone, drone.pList[ drone._dir ] )
@@ -125,11 +120,55 @@ function initPatrol() {
 }
 
 
-function genDroneList() {
-    data = [] ;
+var stop1 ;
+var stop2 ;
+var exit1 ;
+var exit2 ;
+var signToggle = false ;
 
-    for (var i = 0 ; i < data.length ; i++ ) {
-        $("#trList").append() ;    
+
+{lat: , lng:  }, 
+{lat: 24.041298000776816, lng: 120.56508079462048 }, 
+{lat: 24.041944675829697, lng: 120.57344928674695 }, 
+
+function initStopExit() {
+    var stop1 = new google.maps.Marker({
+        position: new google.maps.LatLng(24.037334595426287, 120.56487067748446),
+        map: map,
+        icon: 'img/drone_stop.png'
+    });
+    var stop2 = new google.maps.Marker({
+        position: new google.maps.LatLng(24.04381632957585, 120.56718541101759),
+        map: map,
+        icon: 'img/drone_stop.png'
+    });
+
+    var exit1 = new google.maps.Marker({
+        position: new google.maps.LatLng(24.038319334254616, 120.56673303537366),
+        map: map,
+        icon: 'img/drone_stop.png'
+    });
+
+    var exit2 = new google.maps.Marker({
+        position: new google.maps.LatLng(24.04381632957585, 120.56718541101759),
+        map: map,
+        icon: 'img/drone_stop.png'
+    });
+    var changeStopExit = function() {
+        signToggle = ! signToggle; 
+        if ( signToggle ) {
+            stop1.setIcon('img/drone_stop.png') ;
+            stop2.setIcon('img/drone_stop.png') ;
+        }
+        else {
+            stop1.setIcon('img/drone_stop_darker.png') ;
+            stop2.setIcon('img/drone_stop_darker.png') ;
+        }
+
+        setTimeout(changeStopExit, 500) ;
     }
-    
+
+    setTimeout(changeStopExit, 500) ;
 }
+
+
