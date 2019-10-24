@@ -127,9 +127,9 @@ var exit2 ;
 var signToggle = false ;
 
 
-{lat: , lng:  }, 
-{lat: 24.041298000776816, lng: 120.56508079462048 }, 
-{lat: 24.041944675829697, lng: 120.57344928674695 }, 
+// {lat: , lng:  }, 
+// {lat: 24.041298000776816, lng: 120.56508079462048 }, 
+// {lat: 24.041944675829697, lng: 120.57344928674695 }, 
 
 function initStopExit() {
     var stop1 = new google.maps.Marker({
@@ -149,8 +149,9 @@ function initStopExit() {
         icon: 'img/drone_stop.png'
     });
 
+
     var exit2 = new google.maps.Marker({
-        position: new google.maps.LatLng(24.04381632957585, 120.56718541101759),
+        position: new google.maps.LatLng(24.041572348166593, 120.56638434820172),
         map: map,
         icon: 'img/drone_stop.png'
     });
@@ -159,10 +160,14 @@ function initStopExit() {
         if ( signToggle ) {
             stop1.setIcon('img/drone_stop.png') ;
             stop2.setIcon('img/drone_stop.png') ;
+            exit1.setIcon('img/drone_exit.png') ;
+            exit2.setIcon('img/drone_exit.png') ;
         }
         else {
             stop1.setIcon('img/drone_stop_darker.png') ;
             stop2.setIcon('img/drone_stop_darker.png') ;
+            exit1.setIcon('img/drone_exit_darker.png') ;
+            exit2.setIcon('img/drone_exit_darker.png') ;
         }
 
         setTimeout(changeStopExit, 500) ;
