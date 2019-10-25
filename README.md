@@ -3,7 +3,7 @@
 
 
 # Who We Are
-We are Team ET760, Nasa spaceappschallenge, Taipei site. this is repo is port of our system.
+We are Team ET760, Nasa spaceappschallenge, Taipei site. this is repo is part of our system.
 
 # Honeycomb Platform
 This is the Honeycomb Central Contorl Panel. people can register your drone as 'FireBees'.
@@ -16,21 +16,21 @@ Client side: Java Script + Google Maps
 component: The Citizes, FireFighters, Goverments
 
 
+Demo Link `here`
 the use senario, data analysis, or short video, please watch the Project page of ET760. `link here`
 
 
 ## Warning Area
 
-Using nasa Nex's Data to predit danger area by.
-
+Using nasa Nex's Data to predit 火會往哪燒 by MachineLeaning.
 
 ## The Citizes
 
-The Citizes Register their drone as "freebee", connect to server by 5G.
+The Citizes Register their drone as "Fire Bee", connect to server by 5G.
 all 'Freebee' connect to server by 5G, sending gps, templaure, wind, surveillance to server.
 
 ## Fire Fighters
-Fire Fighters can get more fire updates, live streaming, drone list from Web Apps.
+Fire Fighters can get more fire updates (danger area), live streaming, drone list from Web Apps.
 
 
 ## Goverments
