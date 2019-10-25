@@ -1,0 +1,26 @@
+<annotation>
+  <folder>training</folder>
+  <filename>image_00016</filename>
+  <path>Z:\Desktop\NASA2019_et760\smoke_detect\training\image_00016.jpg</path>
+  <source>
+    <database>Unknown</database>
+  </source>
+  <size>
+    <width>1280</width>
+    <height>960</height>
+    <depth>3</depth>
+  </size>
+  <segmented>0</segmented>
+  <object>
+    <name>smoke</name>
+    <pose>Unspecified</pose>
+    <truncated>0</truncated>
+    <difficult>0</difficult>
+    <bndbox>
+      <xmin>40</xmin>
+      <ymin>52</ymin>
+      <xmax>1088</xmax>
+      <ymax>596</ymax>
+    </bndbox>
+  </object>
+</annotation>
