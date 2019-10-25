@@ -80,10 +80,10 @@
     </div>
     <div id="map"></div>
     <div id="legend">
-        <span class="btn btn-light btn-sm"><img width=48 height=26 src="https://scsonic.github.io/NASA2019_et760/web/static/img/fire.png"/>Wildfire</span><BR>        
+        <span class="btn btn-light btn-sm"><img width=48 height=26 src="img/fire48.png"/>Wildfire</span><BR>        
         <span class="btn btn-light btn-xs"><img width=48 height=26 src="img/green_circle48.png"/>Manual</span><BR>
-        <span class="btn btn-light"><img width=48 height=26  src="img/drone_yellow48.png"/>Fire Bee S</span><BR>
-        <span class="btn btn-light"><img width=48 height=26 src="img/drone_black64.png"/>Fire Bee R</span><BR>
+        <span class="btn btn-light"><img width=48 height=26  src="img/drone_yellow48.png"/>FireBee Patrol</span><BR>
+        <span class="btn btn-light"><img width=48 height=26 src="img/drone_black64.png"/>FireBee Relief</span><BR>
         <span class="btn btn-light"><img width=48 height=26   src="img/drone_gray48.png"/>Return Drone</span><BR>
         <span class="btn btn-light"><img width=48 height=26  src="img/yellow48.png"/>Danger Area</span><BR>
         <span class="btn btn-light"><img width=48 height=26   src="img/red48.png"/>Warning Area</span>
@@ -127,7 +127,7 @@
               <td>Pixhawk</td>
               <td>85%</td>
               <td>0%</td>
-              <td>Surveillance</td>
+              <td>Patrol</td>
             </tr>
             <tr>
               <th scope="row">3</th>
@@ -155,49 +155,49 @@
               <td>pika</td>
               <td>99%</td>
               <td>--</td>
-              <td>Surveillance</td>
+              <td>Patrol</td>
             </tr>
             <tr>
               <th scope="row">7</th>
               <td>BuBuBu</td>
               <td>95%</td>
               <td>--</td>
-              <td>Surveillance</td>
+              <td>Patrol</td>
             </tr>
             <tr>
               <th scope="row">7</th>
               <td>BuBuBu</td>
               <td>95%</td>
               <td>--</td>
-              <td>Surveillance</td>
+              <td>Patrol</td>
             </tr>
             <tr>
               <th scope="row">8</th>
               <td>Gov </td>
               <td>95%</td>
               <td>--</td>
-              <td>Surveillance</td>
+              <td>Patrol</td>
             </tr>
             <tr>
               <th scope="row">9</th>
               <td>Gov </td>
               <td>95%</td>
               <td>--</td>
-              <td>Surveillance</td>
+              <td>Patrol</td>
             </tr>
             <tr>
               <th scope="row">10</th>
               <td>Gov </td>
               <td>90%</td>
               <td>--</td>
-              <td>Surveillance</td>
+              <td>Patrol</td>
             </tr>
             <tr>
               <th scope="row">11</th>
               <td>Gov </td>
               <td>55%</td>
               <td>--</td>
-              <td>Surveillance</td>
+              <td>Patrol</td>
             </tr>
             <tr>
               <th scope="row">12</th>
@@ -218,7 +218,7 @@
               <td>Sysu</td>
               <td>120%</td>
               <td>--</td>
-              <td>Surveillance</td>
+              <td>Patrol</td>
             </tr>
             <tr>
               <th scope="row">15</th>
@@ -239,14 +239,14 @@
               <td>Vincent</td>
               <td>120%</td>
               <td>--</td>
-              <td>Surveillance</td>
+              <td>Patrol</td>
             </tr>
             <tr>
               <th scope="row">18</th>
               <td>ET760</td>
               <td>120%</td>
               <td>--</td>
-              <td>Surveillance</td>
+              <td>Patrol</td>
             </tr>
           </tbody>
         </table>
@@ -435,12 +435,12 @@
             function displayVideo(result) {
                 videoIndex = videoIndex + 1 ;
                 var infoPos = {
-                      lat: gLat - 0.001,
-                      lng: gLon + 0.01 
+                      lat: gLat + 0.002,
+                      lng: gLon + 0.005 
                     };
 
                   var infowindow = new google.maps.InfoWindow({
-                    content: '<iframe width="400" height="300" src="https://www.youtube.com/embed/y-988C2elwU?s=30&autoplay=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>',
+                    content: '<iframe width="400" height="300" src="https://www.youtube.com/embed/_EF5AyzgFLE?s=30&autoplay=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>',
                     position: infoPos,
                     maxWidth: 400,
                     maxHeight: 300,
@@ -628,9 +628,6 @@
             console.log("end of InitMap()") ;
         }
     </script>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAkI0UQK6hLzN3w4NKI7PAmgUR9TMKD9C0&callback=initMap"></script>
-
-
     <script src="main.js">
         
     </script>
@@ -782,28 +779,28 @@ function initStopExit() {
     var exit1 = new google.maps.Marker({
         position: new google.maps.LatLng(24.038319334254616, 120.56673303537366),
         map: map,
-        icon: 'img/drone_stop.png'
+        icon: 'img/drone_exit.png'
     });
 
 
     var exit2 = new google.maps.Marker({
         position: new google.maps.LatLng(24.041572348166593, 120.56638434820172),
         map: map,
-        icon: 'img/drone_stop.png'
+        icon: 'img/drone_exit.png'
     });
     var changeStopExit = function() {
         signToggle = ! signToggle; 
         if ( signToggle ) {
             stop1.setIcon('img/drone_stop.png') ;
             stop2.setIcon('img/drone_stop.png') ;
-            exit1.setIcon('img/drone_exit_left.png') ;
-            exit2.setIcon('img/drone_exit_left.png') ;
+            exit1.setIcon('img/drone_exit.png') ;
+            exit2.setIcon('img/drone_exit.png') ;
         }
         else {
             stop1.setIcon('img/drone_stop_darker.png') ;
             stop2.setIcon('img/drone_stop_darker.png') ;
-            exit1.setIcon('img/drone_exit_left_darker.png') ;
-            exit2.setIcon('img/drone_exit_left_darker.png') ;
+            exit1.setIcon('img/drone_exit_darker.png') ;
+            exit2.setIcon('img/drone_exit_darker.png') ;
         }
 
         setTimeout(changeStopExit, 500) ;
@@ -813,5 +810,7 @@ function initStopExit() {
 }
 
     </script>
+        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAkI0UQK6hLzN3w4NKI7PAmgUR9TMKD9C0&callback=initMap"></script>
+
 </body>
 </html>
