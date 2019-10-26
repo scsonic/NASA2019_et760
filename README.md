@@ -1,52 +1,45 @@
+# NASA2019 Team ET760
+**Honeycomb App**
+
+A platform which can gather up the public to fight against wildfire.
+
+[Demo link](https://scsonic.github.io/NASA2019_et760/web/static/index.html)
 
 # Honeycomb Platform
-This is the Honeycomb Central Contorl Panel. people can register your drone as 'FireBees'. 
 
+In this project, we invite those who have drones to join the **Fire Bees Program**. Once they register with our system, their drones will become one of the smart wildfire fighters in our system. Meanwhile, everyone can monitor each drone’s status and track the updates of a wildfire in real time.
 
 # System
 
-Server: Node js
-Client side: Java Script + Google Maps
-component: The Citizes, FireFighters, Goverments
+Server: Node.js
+Client side: JavaScript + Google Maps API
+
+## How to Use
+**Register your drone**
+
+Users can register their drones as **Fire Bee**
+
+![](https://i.imgur.com/40yuoBw.png)
+
+* The fire icon: the point of origin
+* Red area: buring area
+* Yellow area: high risk area
+
+![](https://i.imgur.com/eLhXHdU.png)
+
+**Monitor the drones status**
+
+Users can check the status of each drone on this table 
+
+![](https://i.imgur.com/xO9QJNg.png)
 
 
-Demo Link `here`
-the use senario, data analysis, or short video, please watch the Project page of ET760. 
-[2019 Nasa]: https://2019.spaceappschallenge.org/challenges/living-our-world/spot-fire-v20/teams/et760/project
+**Watch live streamings**
+
+Users can click the drones' icon to watch the live streaming recording by the drones
+
+![](https://i.imgur.com/5rZv7ds.png)
 
 
 
 
-## Warning Area
-
-Using nasa Nex's Data to predit 火會往哪燒 by MachineLeaning.
-
-## Fire Bees
-
-the Fire Bee are drone that connect to the Honeycomb system. 
-Fire Bee can make alarm, surveillance, fire guide, air drop retardant.
-
-
-## The Citizes
-
-The Citizes Register their drone as "Fire Bee", connect to Honeycomb by 5G.
-The Honeycomb will Team UP these drone.
-
-## Fire Fighters
-
-Fire Fighters can get more fire updates (danger area), live streaming from Web Apps.
-
-## Goverments
-Goverments has more powerful drones.
-
-
-Shield: [![CC BY-SA 4.0][cc-by-sa-shield]][cc-by-sa]
-
-This work is licensed under a [Creative Commons Attribution-ShareAlike 4.0
-International License][cc-by-sa].
-
-[![CC BY-SA 4.0][cc-by-sa-image]][cc-by-sa]
-
-[cc-by-sa]: http://creativecommons.org/licenses/by-sa/4.0/
-[cc-by-sa-image]: https://licensebuttons.net/l/by-sa/4.0/88x31.png
-[cc-by-sa-shield]: https://img.shields.io/badge/License-CC%20BY--SA%204.0-lightgrey.svg
