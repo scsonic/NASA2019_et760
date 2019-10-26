@@ -1,12 +1,6 @@
-# NASA2019_et760
-
-
-
-# Who We Are
-We are Team ET760, Nasa spaceappschallenge, Taipei site. this is repo is part of our system.
 
 # Honeycomb Platform
-This is the Honeycomb Central Contorl Panel. people can register your drone as 'FireBees'.
+This is the Honeycomb Central Contorl Panel. people can register your drone as 'FireBees'. 
 
 
 # System
@@ -17,24 +11,33 @@ component: The Citizes, FireFighters, Goverments
 
 
 Demo Link `here`
-the use senario, data analysis, or short video, please watch the Project page of ET760. `link here`
+the use senario, data analysis, or short video, please watch the Project page of ET760. 
+[2019 Nasa]: https://2019.spaceappschallenge.org/challenges/living-our-world/spot-fire-v20/teams/et760/project
+
+
 
 
 ## Warning Area
 
 Using nasa Nex's Data to predit 火會往哪燒 by MachineLeaning.
 
+## Fire Bees
+
+the Fire Bee are drone that connect to the Honeycomb system. 
+Fire Bee can make alarm, surveillance, fire guide, air drop retardant.
+
+
 ## The Citizes
 
-The Citizes Register their drone as "Fire Bee", connect to server by 5G.
-all 'Freebee' connect to server by 5G, sending gps, templaure, wind, surveillance to server.
+The Citizes Register their drone as "Fire Bee", connect to Honeycomb by 5G.
+The Honeycomb will Team UP these drone.
 
 ## Fire Fighters
-Fire Fighters can get more fire updates (danger area), live streaming, drone list from Web Apps.
 
+Fire Fighters can get more fire updates (danger area), live streaming from Web Apps.
 
 ## Goverments
-Goverments has more large drone.
+Goverments has more powerful drones.
 
 
 Shield: [![CC BY-SA 4.0][cc-by-sa-shield]][cc-by-sa]

@@ -1,6 +1,0 @@
-classes= 1
-train  = /home/scsonic/Desktop/train.txt
-valid  = /home/scsonic/Desktop/valid.txt
-names = data/smoke.names
-backup = /home/scsonic/Desktop/backup
-
