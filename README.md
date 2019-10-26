@@ -36,7 +36,7 @@ Users can check the status of each drone on this table
 ![](https://i.imgur.com/xO9QJNg.png)
 
 
-**watch live streamings**
+**Watch live streamings**
 
 Users can click the drones' icon to watch the live streaming recording by the drones
 
