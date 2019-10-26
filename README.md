@@ -21,6 +21,8 @@ Users can register their drones as **Fire Bee**
 
 ![](https://i.imgur.com/40yuoBw.png)
 
+**Check the fire information and safety area**
+
 * The fire icon: the point of origin
 * Red area: buring area
 * Yellow area: high risk area
