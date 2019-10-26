@@ -94,14 +94,13 @@
         <span class="btn btn-light btn-xs"><img width=48 height=26 src="img/green_circle48.png"/>Manual</span><BR>
         <span class="btn btn-light"><img width=48 height=26  src="img/drone_yellow48.png"/>FireBee Patrol</span><BR>
         <span class="btn btn-light"><img width=48 height=26 src="img/drone_black64.png"/>FireBee FireFighter</span><BR>
-        <span class="btn btn-light"><img width=48 height=26 src="img/drone_yellow48_rect.png"/>My FireBee</span><BR>
         <span class="btn btn-light"><img width=48 height=26   src="img/drone_gray48.png"/>Return To Home</span><BR>
         <span class="btn btn-light"><img width=48 height=26  src="img/yellow48.png"/>Danger Area</span><BR>
         <span class="btn btn-light"><img width=48 height=26   src="img/red48.png"/>Warning Area</span>
 
         <!--
         <span class="btn btn-light"><img width=25 height=25 src="https://maps.google.com/mapfiles/kml/shapes/info-i_maps.png"/>Info</span>
-    -->
+     -->
     </div>
 
 <div class="modal fade" id="CallForHelp" tabindex="-1" role="dialog" aria-labelledby="CallForHelpTitle" aria-hidden="true">
@@ -692,6 +691,15 @@
                 createCurrentDrone() ;
             }) ;
 
+
+            var createLoop = function() {
+                console.log("join one FireBee") ;
+                createCurrentDrone() ;
+                //setTimeout(createLoop, 3000) ;
+            } ;
+
+            setTimeout(createLoop, 3000) ;
+
             console.log("end of InitMap()") ;
         }
     </script>
@@ -912,7 +920,7 @@ function initStopExit() {
         pList.push( pList[0] ) ;
 
 
-        var usingIcon = 'img/drone_yellow64_rect.png' 
+        var usingIcon = 'img/drone_yellow64.png' 
         var drone = new google.maps.Marker({
             position: new google.maps.LatLng( pList[0][0], pList[0][1]),
             map: map,
@@ -982,12 +990,13 @@ function initStopExit() {
                 if ( drone._dir >= drone.pList.length) {
                     console.log("current drone END!!!") ;
                     drone.setMap(null) ;
+                    createCurrentDrone() ;
                 }
                 else {
-                                    drone._startX = drone.pList[drone._dir][0] ;
-                drone._startY = drone.pList[drone._dir][1] ;
-                drone.transitionV4(drone, [drone._startX, drone._startY]) ;    
-                drone.setIcon('img/drone_yellow64_rect.png') ;
+                    drone._startX = drone.pList[drone._dir][0] ;
+                    drone._startY = drone.pList[drone._dir][1] ;
+                    drone.transitionV4(drone, [drone._startX, drone._startY]) ;    
+                    drone.setIcon('img/drone_yellow64.png') ;
                 }
             }
         }
