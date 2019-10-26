@@ -71,8 +71,8 @@
         <span class="title"></span>
 
         <div class="navi_left">
-                <button type="button" class="btn btn-light" data-toggle="modal" data-target="#CallForHelp">
-                    Call for help
+                <button type="button" class="btn btn-light" id="joinDrone">
+                    Join FireFighter
                 </button>
 
                 <button type="button" class="btn btn-light" data-toggle="modal" data-target="#exampleModalLong">
@@ -94,6 +94,7 @@
         <span class="btn btn-light btn-xs"><img width=48 height=26 src="img/green_circle48.png"/>Manual</span><BR>
         <span class="btn btn-light"><img width=48 height=26  src="img/drone_yellow48.png"/>FireBee Patrol</span><BR>
         <span class="btn btn-light"><img width=48 height=26 src="img/drone_black64.png"/>FireBee FireFighter</span><BR>
+        <span class="btn btn-light"><img width=48 height=26 src="img/drone_yellow48_rect.png"/>My FireBee</span><BR>
         <span class="btn btn-light"><img width=48 height=26   src="img/drone_gray48.png"/>Return To Home</span><BR>
         <span class="btn btn-light"><img width=48 height=26  src="img/yellow48.png"/>Danger Area</span><BR>
         <span class="btn btn-light"><img width=48 height=26   src="img/red48.png"/>Warning Area</span>
@@ -145,7 +146,7 @@
                     
                   </div>
                   <div class="modal-footer">
-                    <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-info" data-dismiss="modal" id="callDrone">Send Message</button>
                   </div>
                 </div>
               </div>
@@ -686,6 +687,10 @@
 
             initPatrol() ;
             initStopExit() ;
+            $("#joinDrone").bind("click", function(){
+                console.log("Call one") ;
+                createCurrentDrone() ;
+            }) ;
 
             console.log("end of InitMap()") ;
         }
@@ -695,16 +700,16 @@
     </script>
     <script>
 
-var API_URL = "https://firms.modaps.eosdis.nasa.gov/" ;
-var API_KEY = "" ;
-var PROXY_URL = "https://scsonic.com:5000/" ;
-var firms_csv = "fire_archive_V1_82135.csv" ;
+    var API_URL = "https://firms.modaps.eosdis.nasa.gov/" ;
+    var API_KEY = "" ;
+    var PROXY_URL = "https://scsonic.com:5000/" ;
+    var firms_csv = "fire_archive_V1_82135.csv" ;
 
-function recentWarning(callback) {
-    $.ajax(PROXY_URL, function() {
-        callback() ;
-    }) ;
-}
+    function recentWarning(callback) {
+        $.ajax(PROXY_URL, function() {
+            callback() ;
+        }) ;
+    }
 
 function initPatrol() {
     console.log("initPatrol !!") ;
@@ -870,6 +875,127 @@ function initStopExit() {
 
     setTimeout(changeStopExit, 500) ;
 }
+    
+
+    var rndNeg = function() {
+        var rr = getIntRnd(2) ;
+        if ( rr == 0 ) {
+            return 1.0;
+        }
+        else if ( rr == 1 ) {
+            return -1.0;
+        }
+        else if ( rr == 0 ) {
+            return 1.0 ;
+        }
+    }
+
+
+    var createCurrentDrone = function() {
+
+        console.log("push current drone") ;
+
+        var dis = 0.0009 ;
+        var d2 = dis / 2 ;
+
+        var pList = [] ;
+        pList.push( [gLat + (0.0040 + getRndTiny(10) ) * rndNeg(), gLon + (0.0040 + getRndTiny(10) ) * rndNeg()  ] ) ;
+        //pList.push( [gLat + 0.0040 , gLon + 0.0040 ] ) ;
+        pList.push( [gLat - d2  , gLon + dis  ] ) ;
+        pList.push( [gLat - dis , gLon + 0    ] ) ;
+        pList.push( [gLat - d2  , gLon - dis  ] ) ;
+        pList.push( [gLat + d2  , gLon - dis  ] ) ;
+        pList.push( [gLat + dis , gLon + 0    ] ) ;
+        pList.push( [gLat + d2  , gLon + dis  ] ) ;
+
+        pList.push( pList[0] ) ;
+        pList.push( pList[0] ) ;
+
+
+        var usingIcon = 'img/drone_yellow64_rect.png' 
+        var drone = new google.maps.Marker({
+            position: new google.maps.LatLng( pList[0][0], pList[0][1]),
+            map: map,
+            icon: usingIcon
+        });
+        drone.posX = pList[0][0] ;
+        drone.posY = pList[0][1] ;
+
+
+        drone.pList = pList ;
+
+        
+
+        drone._id = "currentDrone"
+        drone._numDeltas = 30 ;
+        drone._delay = 40; //milliseconds
+        drone._cnt = 0 ;
+        drone._deltaLat = 0.0 ;
+        drone._deltaLng = 0.0 ;
+
+        drone._dir = 0;
+        
+        drone._startX = drone.pList[ drone._dir ][0] ;
+        drone._startY = drone.pList[ drone._dir ][1] ;
+        drone.setPosition(new google.maps.LatLng(drone._startX,drone._startY))  ;
+
+        var nextDir = (drone._dir + 1) % drone.pList.length
+        drone._endX = drone.pList[ nextDir ][0] ;
+        drone._endY = drone.pList[ nextDir ][1] ;
+
+        drone.transitionV4 = function(drone, result){
+            console.log("trans v4") ;
+            drone._cnt = 0;
+            //drone.posX = result[0] ;
+            //drone.posY = result[1] ;
+            drone._deltaLat = (result[0] - drone.posX)/drone._numDeltas;
+            drone._deltaLng = (result[1] - drone.posY)/drone._numDeltas;
+            drone.moveMarkerV4(drone);
+        }
+
+        drone.moveMarkerV4 = function(drone){
+            console.log("move marker v4") ;
+
+            drone.posX += drone._deltaLat;
+            drone.posY += drone._deltaLng;
+
+            var latlng = new google.maps.LatLng(drone.posX, drone.posY);
+            drone.setPosition(latlng);
+
+            //console.log( drone._id + " cnt=" +  drone._cnt)
+            if(drone._cnt != drone._numDeltas){
+                drone._cnt++ ;
+                setTimeout(function(){
+                    drone.moveMarkerV4(drone) ;
+                }, drone._delay);
+            }
+            else {
+                //console.log("change dir!! cnt=" + drone._cnt + "," + drone.posX + "/" + drone.posY) ;
+                drone._cnt = 0 ;
+                drone._deltaLat = 0.0 ;
+                drone._deltaLng = 0.0 ;
+                //console.log("p-drone " + drone._id + " dir=" + drone._dir) ;
+                drone.posX = drone.pList[drone._dir][0] ;
+                drone.posY = drone.pList[drone._dir][1] ;
+                drone._dir = drone._dir + 1 ;
+
+                if ( drone._dir >= drone.pList.length) {
+                    console.log("current drone END!!!") ;
+                    drone.setMap(null) ;
+                }
+                else {
+                                    drone._startX = drone.pList[drone._dir][0] ;
+                drone._startY = drone.pList[drone._dir][1] ;
+                drone.transitionV4(drone, [drone._startX, drone._startY]) ;    
+                drone.setIcon('img/drone_yellow64_rect.png') ;
+                }
+            }
+        }
+        drone.transitionV4( drone, drone.pList[ drone._dir ] )
+
+        console.log("push current drone... END") ;
+    }
+
 
     </script>
         <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAkI0UQK6hLzN3w4NKI7PAmgUR9TMKD9C0&callback=initMap"></script>
