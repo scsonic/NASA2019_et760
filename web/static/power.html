@@ -465,7 +465,7 @@ Firefighting
               fillColor: '#FF0000',
               fillOpacity: 0.35
             });
-            bermudaTriangle.setMap(map);
+            //bermudaTriangle.setMap(map);
 
             
 
@@ -478,7 +478,7 @@ Firefighting
               fillColor: '#FFFF00',
               fillOpacity: 0.35
             });
-            yellowTriangle.setMap(map);
+            //yellowTriangle.setMap(map);
 
 
 
@@ -521,7 +521,7 @@ Firefighting
 
 
             // ============ INIT FIRE POSITION
-            var fireCount = 5;
+            var fireCount = 0;
             for (var i = 0 ; i < fireCount ; i = i + 1 ) {
                 var fire = new google.maps.Marker({
                     position: new google.maps.LatLng(gLat+getRndTiny(3), gLon+getRndTiny(3) ),
@@ -533,7 +533,7 @@ Firefighting
                 fireList.push(fire) ;
             }
 
-            var droneCount = 6 ;
+            var droneCount = 0;
 
 
             for ( var d = 0 ; d < droneCount ; d = d + 1) {
@@ -650,12 +650,12 @@ Firefighting
             map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(legend);
 
 
-            var marker = new google.maps.Marker({
-                position: latlng,
-                map: map,
-                icon: 'img/drone_yellow64_rect.png',
-                title: ""
-            });
+            // var marker = new google.maps.Marker({
+            //     position: latlng,
+            //     map: map,
+            //     icon: 'img/drone_yellow64_rect.png',
+            //     title: ""
+            // });
 
 
 
@@ -722,8 +722,8 @@ Firefighting
 
             // ===================================
 
-            initPatrol() ;
-            initStopExit() ;
+            //initPatrol() ;
+            //initStopExit() ;
             $("#joinDrone").bind("click", function(){
                 console.log("Call one") ;
                 createCurrentDrone() ;
@@ -735,8 +735,8 @@ Firefighting
                 createCurrentDrone() ;
                 //setTimeout(createLoop, 3000) ;
             } ;
-            setTimeout( createCurrentDrone, 3000) ;
-            setTimeout( createLoop, 6000) ;
+            //setTimeout( createCurrentDrone, 3000) ;
+            //setTimeout( createLoop, 6000) ;
 
             console.log("end of InitMap()") ;
         }
