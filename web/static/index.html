@@ -653,8 +653,16 @@ Firefighting
                 position: latlng,
                 map: map,
                 icon: 'img/drone_yellow64_rect.png',
-                title: "State: AirDrop<BR>Power: 50%<BR>Owner: Harry Poter"
+                title: ""
             });
+
+            var powerStation = new google.maps.Marker({
+                position: new google.maps.LatLng(24.038908933177694, 120.56671425991055) ,
+                map: map,
+                icon: 'img/power80.png',
+                title: ""
+            });
+
 
             function transition(result){
                 i = 0;
