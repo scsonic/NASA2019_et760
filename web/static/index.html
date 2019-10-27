@@ -44,6 +44,8 @@
 
         #legend span img {
             margin-right: 5px;
+            font-size: 2em;
+            border-radius: 5px;
         }
 
         div.navi {
@@ -65,12 +67,6 @@
             width: 400px ;
         }
 
-        img#pwimg {
-            margin-top: -6px ;
-            margin-bottom: -6px ;
-            margin-left: 5px ;
-            margin-right : 15px ;
-        }
     </style>
 </head>
 <body>
@@ -97,14 +93,14 @@
     </div>
     <div id="map"></div>
     <div id="legend">
-        <span class="btn btn-light btn-sm"><img width=64 height=39 src="img/fire48.png"/>Wildfire</span><BR>        
-        <span class="btn btn-light btn-xs"><img width=64 height=39 src="img/drone_yellow48_rect.png"/>Manual</span><BR>
-        <span class="btn btn-light"><img width=64 height=39  src="img/drone_yellow48.png"/>Patroller</span><BR>
-        <span class="btn btn-light"><img width=64 height=39 src="img/drone_black64.png"/>Firefighter</span><BR>
-        <span class="btn btn-light"><img width=64 height=39   src="img/drone_gray48.png"/>Return To Home</span><BR>
-        <span class="btn btn-light"><img width=64 height=39  src="img/yellow48.png"/>Danger Area</span><BR>
-        <span class="btn btn-light"><img width=64 height=39   src="img/red48.png"/>Warning Area</span><BR>
-        <span class="btn btn-light"><img id=pwimg width=64 height=64 src="img/power_legend.png"/>&nbsp;&nbsp;Power Station</span>
+        <span class="btn btn-light btn-lg"><img width=64 height=39 src="img/fire48.png"/>Wildfire</span><BR>        
+        <span class="btn btn-light btn-lg"><img width=64 height=39 src="img/drone_yellow48_rect.png"/>Manual</span><BR>
+        <span class="btn btn-light btn-lg"><img width=64 height=39  src="img/drone_yellow48.png"/>Patroller</span><BR>
+        <span class="btn btn-light btn-lg"><img width=64 height=39 src="img/drone_black64.png"/>Firefighter</span><BR>
+        <span class="btn btn-light btn-lg"><img width=64 height=39   src="img/drone_gray48.png"/>Return To Home</span><BR>
+        <span class="btn btn-light btn-lg"><img width=64 height=39  src="img/yellow48.png"/>Danger Area</span><BR>
+        <span class="btn btn-light btn-lg"><img width=64 height=39   src="img/red48.png"/>Warning Area</span><BR>
+        <span class="btn btn-light btn-lg"><img id=pwimg width=64 height=39 src="img/power_legend_6439.png"/>Power Station</span>
 
         <!--
             firefighting drone
@@ -669,28 +665,28 @@ Firefighting
             var powerStation1 = new google.maps.Marker({
                 position: new google.maps.LatLng(24.037915651797846,120.56764766864774 ) ,
                 map: map,
-                icon: 'img/power80.png',
+                icon: 'img/power_legend_6439.png',
                 title: ""
             });
 
             var powerStation2 = new google.maps.Marker({
                 position: new google.maps.LatLng(24.04159235108978, 120.56385869844712) ,
                 map: map,
-                icon: 'img/power80.png',
+                icon: 'img/power_legend_6439.png',
                 title: ""
             });
 
             var powerStation3 = new google.maps.Marker({
                 position: new google.maps.LatLng(24.04402225915318, 120.56542510851182) ,
                 map: map,
-                icon: 'img/power80.png',
+                icon: 'img/power_legend_6439.png',
                 title: ""
             });
 
             var powerStation4 = new google.maps.Marker({
                 position: new google.maps.LatLng(24.0450216434813,  120.57581062181748) ,
                 map: map,
-                icon: 'img/power80.png',
+                icon: 'img/power_legend_6439.png',
                 title: ""
             });
 
