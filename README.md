@@ -27,7 +27,7 @@ Users can register their drones as **Fire Bee**
 * Red area: buring area
 * Yellow area: high risk area
 
-![](https://i.imgur.com/jisi3BK.gif)
+![](https://i.imgur.com/cyS5Jdj.jpg)
 
 
 **Monitor the drones status**
