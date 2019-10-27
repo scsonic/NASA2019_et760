@@ -27,7 +27,6 @@
             position: absolute;
             z-index: 10;
             width: 100%;
-            height: 60px;
             background-color :  rgba(200,200,200,0.6)
         }
 
@@ -78,11 +77,11 @@
                     Join FireFighter
                 </button> -->
 
-                <button type="button" class="btn btn-light" data-toggle="modal" data-target="#exampleModalLong">
+                <button type="button" class="btn btn-light btn-lg" data-toggle="modal" data-target="#exampleModalLong">
                     FireBee List
                 </button>
 
-            <div class="btn btn-light">
+            <div class="btn btn-light  btn-lg">
                 <div class="custom-control custom-switch">
                     <input type="checkbox" class="custom-control-input" id="swArea" checked>
                     <label class="custom-control-label" for="swArea">Warning Area</label>
@@ -547,11 +546,11 @@ Firefighting
                     map: map,
                     icon: usingIcon
                 });
-                drone.posX = gLat+getRndTiny(30) ;
-                drone.posY = gLon+getRndTiny(30) ;
+                drone.posX = gLat+ 0.0020 + getRndTiny(10) ;
+                drone.posY = gLon+ 0.0020 + getRndTiny(10) ;
 
                 drone._id = "d" + d ;
-                drone._numDeltas = 80 + getIntRnd(20) ;
+                drone._numDeltas = 100 + getIntRnd(10) ;
                 drone._delay = 50 + getIntRnd(10); //milliseconds
                 drone._cnt = 0 ;
                 drone._deltaLat = 0.0 ;
@@ -559,8 +558,8 @@ Firefighting
 
                 drone._startX = gLat+getRndTiny(1) ;
                 drone._startY = gLon+getRndTiny(1) ;
-                drone._endX = gLat+getRndTiny(100) ;
-                drone._endY = gLon+getRndTiny(100) ;
+                drone._endX = gLat+ getRndTiny(50) * 2 ;
+                drone._endY = gLon+ getRndTiny(50) * 2 ;
                 drone._dir = 1 ;
 
                 console.log("push one drone") ;
@@ -948,17 +947,35 @@ function initStopExit() {
         var d2 = dis / 2 ;
 
         var pList = [] ;
-        pList.push( [gLat + (0.0040 + getRndTiny(10) ) * rndNeg(), gLon + (0.0040 + getRndTiny(10) ) * rndNeg()  ] ) ;
+        var headList = [] ;
+        var x = gLat + (0.0040 + getRndTiny(10) ) * rndNeg() ;
+        var y = gLon + (0.0040 + getRndTiny(10) ) * rndNeg() ;
+
+        var toX = gLat - d2  ;
+        var toY = gLon + dis ;
+
+        var diffX = (x - toX) / 4 ;
+        var diffY = (y - toY) / 4 ;
+        //pList.push( [ x, y ] ) ;
+        for ( var i = 0 ; i < 4 ; i++ ) { 
+            headList.push( [x - diffX * i, y - diffY * i])  ;
+            pList.push(    [x - diffX * i, y - diffY * i])  ;
+        }
+
+
         //pList.push( [gLat + 0.0040 , gLon + 0.0040 ] ) ;
-        pList.push( [gLat - d2  , gLon + dis  ] ) ;
+        pList.push( [ toX,  toY] ) ;// temp first 
         pList.push( [gLat - dis , gLon + 0    ] ) ;
         pList.push( [gLat - d2  , gLon - dis  ] ) ;
         pList.push( [gLat + d2  , gLon - dis  ] ) ;
         pList.push( [gLat + dis , gLon + 0    ] ) ;
         pList.push( [gLat + d2  , gLon + dis  ] ) ;
 
-        pList.push( pList[0] ) ;
-        pList.push( pList[0] ) ;
+        var headListReverse = headList.reverse() ;
+        for (var h = 0 ; h < headListReverse.length ; h++ ) {
+            pList.push(headListReverse[h]) ;
+        }
+        pList.push( pList[pList.length-1]) ;
 
 
         var usingIcon = 'img/drone_yellow64.png' 
@@ -1027,6 +1044,7 @@ function initStopExit() {
                 drone.posX = drone.pList[drone._dir][0] ;
                 drone.posY = drone.pList[drone._dir][1] ;
                 drone._dir = drone._dir + 1 ;
+                drone._numDeltas = 40 ;
 
                 if ( drone._dir >= drone.pList.length) {
                     console.log("current drone END!!!") ;
